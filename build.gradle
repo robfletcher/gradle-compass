@@ -23,6 +23,11 @@ publishing {
 	        from components.java
 	    }
 	}
+	repositories {
+        maven {
+            url "http://dl.bintray.com/robfletcher/gradle-plugins"
+        }
+    }
 }
 
 task wrapper(type: Wrapper) {
