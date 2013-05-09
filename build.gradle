@@ -1,8 +1,28 @@
 apply plugin: 'groovy'
+apply plugin: 'maven-publish'
+
+buildscript {
+    apply from: 'gradle/Bintray.gradle'
+}
+
+repositories {
+    bintray.repo repoOwner: 'robfletcher', repoName: 'gradle-plugins'
+}
+
+group = 'org.gradle.plugins'
+version = '1.0'
 
 dependencies {
 	compile gradleApi()
 	compile localGroovy()
+}
+
+publishing {
+	publications {
+		mavenJava(MavenPublication) {
+	        from components.java
+	    }
+	}
 }
 
 task wrapper(type: Wrapper) {
