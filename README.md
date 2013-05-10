@@ -54,7 +54,7 @@ You can also specify the directory where the Compass Ruby gem will be installed 
 
 ## Using with other tasks
 
-You will typically want to execute the Compass tasks as part of a larger build. For example this configuration will run `compileSass` as part of `processResources`, `watchSass` as part of the Application plugin's `run` task and clean the output of `compileSass` as part of `clean`:
+You will typically want to execute the Compass tasks as part of a larger build. For example this configuration will run `compileSass` as part of `processResources`, `watchSass` as part of the [Application plugin][app-plugin]'s `run` task and clean the output of `compileSass` as part of `clean`:
 
 ```groovy
 processResources.inputs.files compileSass
@@ -62,6 +62,7 @@ run.dependsOn watchSass
 clean.dependsOn cleanCompileSass
 ```
 
+[app-plugin]:http://www.gradle.org/docs/current/userguide/application_plugin.html
 [compass]:http://compass-style.org/
 [gradle]:http://gradle.org/
 [sass]:http://sass-lang.com/
