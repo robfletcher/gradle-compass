@@ -1,14 +1,6 @@
 apply plugin: 'groovy'
 apply plugin: 'maven-publish'
 
-buildscript {
-    apply from: 'gradle/Bintray.gradle'
-}
-
-repositories {
-    bintray.repo repoOwner: 'robfletcher', repoName: 'gradle-plugins'
-}
-
 group = 'org.gradle.plugins'
 version = '1.0'
 
@@ -20,14 +12,18 @@ dependencies {
 publishing {
 	publications {
 		mavenJava(MavenPublication) {
-	        from components.java
-	    }
+			from components.java
+		}
 	}
 	repositories {
-        maven {
-            url "http://dl.bintray.com/robfletcher/gradle-plugins"
-        }
-    }
+		maven {
+			url 'https://api.bintray.com/maven/robfletcher/gradle-plugins/gradle-compass'
+			credentials {
+				username = bintray_username
+				password = bintray_api_key
+			}
+		}
+	}
 }
 
 task wrapper(type: Wrapper) {
