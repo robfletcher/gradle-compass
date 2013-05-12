@@ -7,6 +7,7 @@ class CompassTask extends JRubyTask {
 
 	String command
 	boolean background
+	boolean relativeAssets
 
 	@InputDirectory
 	File gemPath
@@ -38,6 +39,9 @@ class CompassTask extends JRubyTask {
 		args << '--css-dir' << getCssDir()
 		args << '--images-dir' << getImagesDir()
 		args << '--javascripts-dir' << getJavascriptsDir()
+		if (getRelativeAssets()) {
+			args << '--relative-assets'
+		}
 		return args
 	}
 

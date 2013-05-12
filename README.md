@@ -37,7 +37,7 @@ buildscript {
 
 ## Configuration
 
-You need to specify the target directory where compiled CSS files should go and the source directories containing SASS/SCSS files, images and JavaScript. For example:
+All configuration for the plugin goes inside a `compass` block in your build file. You must specify the target directory where compiled CSS files should go and the source directories containing SASS/SCSS files, images and JavaScript. For example:
 
 ```groovy
 compass {
@@ -51,6 +51,8 @@ compass {
 These are equivalent to the `--css-dir`, `--sass-dir`, `--images-dir` and `--javascripts-dir` command line options for Compass.
 
 You can also specify the directory where the Compass Ruby gem will be installed using `gemPath`. By default this is `.jruby/gems` inside the Gradle project directory.
+
+To use the Compass `--relative-assets` command line flag set `relativeAssets = true`.
 
 ## Using with other tasks
 

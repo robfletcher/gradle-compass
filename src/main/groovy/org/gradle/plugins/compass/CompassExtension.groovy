@@ -9,4 +9,6 @@ class CompassExtension {
 	File imagesDir
 	File javascriptsDir
 
+	boolean relativeAssets
+
 }

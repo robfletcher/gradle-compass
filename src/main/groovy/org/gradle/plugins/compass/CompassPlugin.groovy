@@ -66,6 +66,7 @@ class CompassPlugin implements Plugin<Project> {
 				sassDir = { extension.sassDir }
 				imagesDir = { extension.imagesDir }
 				javascriptsDir = { extension.javascriptsDir }
+				relativeAssets = { extension.relativeAssets }
 			}
 		}
 	}
