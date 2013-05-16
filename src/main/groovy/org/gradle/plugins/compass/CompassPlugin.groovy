@@ -1,6 +1,7 @@
 package org.gradle.plugins.compass
 
 import org.gradle.api.*
+import java.nio.charset.*
 
 class CompassPlugin implements Plugin<Project> {
 
@@ -46,7 +47,7 @@ class CompassPlugin implements Plugin<Project> {
 	private void createExtension() {
 		extension = project.extensions.create('compass', CompassExtension)
 		extension.with {
-			encoding = Charset.defaultCharset().name
+			encoding = Charset.defaultCharset().name()
 			gemPath = project.file('.jruby/gems')
 			cssDir = project.file('build/css')
 			sassDir = project.file('src/main/sass')
