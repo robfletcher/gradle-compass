@@ -54,6 +54,8 @@ You can also specify the directory where the Compass Ruby gem will be installed 
 
 To use the Compass `--relative-assets` command line flag set `relativeAssets = true`.
 
+To specify the file encoding used by JRuby set `encoding = 'utf-8'` or whatever you want to use. The default is your platform default encoding.
+
 ## Using with other tasks
 
 You will typically want to execute the Compass tasks as part of a larger build. For example this configuration will run `compileSass` as part of `processResources`, `watchSass` as part of the [Application plugin][app-plugin]'s `run` task and clean the output of `compileSass` as part of `clean`:

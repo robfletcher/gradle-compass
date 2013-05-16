@@ -46,6 +46,7 @@ class CompassPlugin implements Plugin<Project> {
 	private void createExtension() {
 		extension = project.extensions.create('compass', CompassExtension)
 		extension.with {
+			encoding = Charset.defaultCharset().name
 			gemPath = project.file('.jruby/gems')
 			cssDir = project.file('build/css')
 			sassDir = project.file('src/main/sass')
@@ -57,6 +58,7 @@ class CompassPlugin implements Plugin<Project> {
 	private void configureTaskRule() {
 		project.tasks.withType(JRubyTask) { JRubyTask task ->
 			task.conventionMapping.with {
+				encoding = { extension.encoding }
 				gemPath = { extension.gemPath }
 			}
 		}
