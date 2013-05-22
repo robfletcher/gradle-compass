@@ -54,15 +54,15 @@ class CompassPlugin implements Plugin<Project> {
 			imagesDir = project.file('src/main/images')
 			javascriptsDir = project.file('src/main/scripts')
 
-      File defaultFontDir = new File('src/main/fonts')
-      if (defaultFontDir.exists()) {
-        fontsDir = project.file(defaultFontDir)
-      }
+			File defaultFontDir = new File('src/main/fonts')
+			if (defaultFontDir.exists()) {
+				fontsDir = project.file(defaultFontDir)
+			}
 
-      projectType = 'stand_alone'
-      environment = 'development'
-      outputStyle = 'compact'
-      debugInfo = true
+			projectType = 'stand_alone'
+			environment = 'development'
+			outputStyle = 'compact'
+			debugInfo = true
 		}
 	}
 
@@ -80,17 +80,17 @@ class CompassPlugin implements Plugin<Project> {
 				imagesDir = { extension.imagesDir }
 				javascriptsDir = { extension.javascriptsDir }
 				relativeAssets = { extension.relativeAssets }
-        projectType = { extension.projectType }
-        environment = { extension.environment }
-        outputStyle = { extension.outputStyle }
-        fontsDir = { extension.fontsDir }
-        noLineComments = { extension.noLineComments }
-        debugInfo = { extension.debugInfo }
-        quiet = { extension.quiet }
-        trace = { extension.trace }
-        force = { extension.force }
-        dryRun = { extension.dryRun }
-        boring = { extension.boring }
+				projectType = { extension.projectType }
+				environment = { extension.environment }
+				outputStyle = { extension.outputStyle }
+				fontsDir = { extension.fontsDir }
+				noLineComments = { extension.noLineComments }
+				debugInfo = { extension.debugInfo }
+				quiet = { extension.quiet }
+				trace = { extension.trace }
+				force = { extension.force }
+				dryRun = { extension.dryRun }
+				boring = { extension.boring }
 			}
 		}
 	}
