@@ -1,5 +1,6 @@
 package org.gradle.plugins.compass
 
+import org.gradle.api.file.FileCollection
 import org.gradle.api.tasks.*
 import static org.gradle.plugins.compass.CompassPlugin.CONFIGURATION_NAME
 
@@ -40,6 +41,9 @@ class CompassTask extends JRubyTask {
 	@InputDirectory
 	File javascriptsDir
 
+	@InputFiles
+	FileCollection importPath
+
 	CompassTask() {
 		doFirst {
 			getCssDir().mkdirs()
@@ -55,8 +59,9 @@ class CompassTask extends JRubyTask {
 		args << '--css-dir' << getCssDir()
 		args << '--images-dir' << getImagesDir()
 		args << '--javascripts-dir' << getJavascriptsDir()
-		if (getRelativeAssets()) {
-			args << '--relative-assets'
+
+		for (File importDir in getImportPath().files) {
+			args << '-I' << importDir
 		}
 
 		args << '--app' << getProjectType()
@@ -69,13 +74,14 @@ class CompassTask extends JRubyTask {
 			args << '--no-debug-info'
 		}
 
-		if (getBoring()) { args << '--boring' }
-		if (getDryRun()) { args << '--dry-run' }
-		if (getFontsDir()) { args << '--fonts-dir' << getFontsDir() }
-		if (getForce()) { args << '--force' }
-		if (getNoLineComments()) { args << '--no-line-comments' }
-		if (getQuiet()) { args << '--quiet' }
-		if (getTrace()) { args << '--trace' }
+		if (getRelativeAssets()) args << '--relative-assets'
+		if (getBoring()) args << '--boring'
+		if (getDryRun()) args << '--dry-run'
+		if (getFontsDir()) args << '--fonts-dir' << getFontsDir()
+		if (getForce()) args << '--force'
+		if (getNoLineComments()) args << '--no-line-comments'
+		if (getQuiet()) args << '--quiet'
+		if (getTrace()) args << '--trace'
 
 		return args
 	}

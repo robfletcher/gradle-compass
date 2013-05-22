@@ -1,5 +1,7 @@
 package org.gradle.plugins.compass
 
+import org.gradle.api.file.FileCollection
+
 class CompassExtension {
 
 	File gemPath
@@ -10,6 +12,7 @@ class CompassExtension {
 	File imagesDir
 	File javascriptsDir
 	File fontsDir
+	FileCollection importPath
 
 	boolean relativeAssets
 	boolean boring

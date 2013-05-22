@@ -80,6 +80,7 @@ class CompassPlugin implements Plugin<Project> {
 				imagesDir = { extension.imagesDir }
 				javascriptsDir = { extension.javascriptsDir }
 				relativeAssets = { extension.relativeAssets }
+				importPath = { extension.importPath }
 				projectType = { extension.projectType }
 				environment = { extension.environment }
 				outputStyle = { extension.outputStyle }
