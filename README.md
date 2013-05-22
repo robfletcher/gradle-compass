@@ -66,6 +66,20 @@ run.dependsOn watchSass
 clean.dependsOn cleanCompileSass
 ```
 
+# Version history
+
+### 1.0.6
+
+* added ability to specify `importPath`.
+
+### 1.0.5
+
+* added various command line options. Thanks [Ben Groves](http://github.com/bgroves).
+
+### 1.0.4
+
+* added ability to specify file encoding used by JRuby.
+
 [app-plugin]:http://www.gradle.org/docs/current/userguide/application_plugin.html
 [compass]:http://compass-style.org/
 [gradle]:http://gradle.org/
