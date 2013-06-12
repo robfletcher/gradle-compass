@@ -29,19 +29,22 @@ class CompassTask extends JRubyTask {
 	File cssDir
 
 	@InputDirectory
+	File sassDir
+
+	@InputDirectory
 	@Optional
 	File fontsDir
 
 	@InputDirectory
-	File sassDir
-
-	@InputDirectory
+	@Optional
 	File imagesDir
 
 	@InputDirectory
+	@Optional
 	File javascriptsDir
 
 	@InputFiles
+	@Optional
 	FileCollection importPath
 
 	CompassTask() {
@@ -57,10 +60,11 @@ class CompassTask extends JRubyTask {
 		args << '-S' << 'compass' << command
 		args << '--sass-dir' << getSassDir()
 		args << '--css-dir' << getCssDir()
-		args << '--images-dir' << getImagesDir()
-		args << '--javascripts-dir' << getJavascriptsDir()
+		if (getImagesDir()) args << '--images-dir' << getImagesDir()
+		if (getJavascriptsDir()) args << '--javascripts-dir' << getJavascriptsDir()
+		if (getFontsDir()) args << '--fonts-dir' << getFontsDir()
 
-		for (File importDir in getImportPath().files) {
+		for (File importDir in getImportPath()?.files) {
 			args << '-I' << importDir
 		}
 
@@ -77,7 +81,6 @@ class CompassTask extends JRubyTask {
 		if (getRelativeAssets()) args << '--relative-assets'
 		if (getBoring()) args << '--boring'
 		if (getDryRun()) args << '--dry-run'
-		if (getFontsDir()) args << '--fonts-dir' << getFontsDir()
 		if (getForce()) args << '--force'
 		if (getNoLineComments()) args << '--no-line-comments'
 		if (getQuiet()) args << '--quiet'
