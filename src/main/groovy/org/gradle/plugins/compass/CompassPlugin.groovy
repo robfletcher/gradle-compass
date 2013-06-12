@@ -51,10 +51,18 @@ class CompassPlugin implements Plugin<Project> {
 			gemPath = project.file('.jruby/gems')
 			cssDir = project.file('build/css')
 			sassDir = project.file('src/main/sass')
-			imagesDir = project.file('src/main/images')
-			javascriptsDir = project.file('src/main/scripts')
 
-			File defaultFontDir = new File('src/main/fonts')
+			def defaultImagesDir = new File('src/main/images')
+			if (defaultImagesDir.isDirectory()) {
+				imagesDir = project.file(defaultImagesDir)
+			}
+
+			def defaultJavascriptsDir = new File('src/main/scripts')
+			if (defaultJavascriptsDir.isDirectory()) {
+				javascriptsDir = project.file(defaultJavascriptsDir)
+			}
+
+			def defaultFontDir = new File('src/main/fonts')
 			if (defaultFontDir.exists()) {
 				fontsDir = project.file(defaultFontDir)
 			}
