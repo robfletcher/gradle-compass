@@ -2,7 +2,7 @@ apply plugin: 'groovy'
 apply plugin: 'maven-publish'
 
 group = 'org.gradle.plugins'
-version = '1.0.6'
+version = '1.0.7'
 
 dependencies {
 	compile gradleApi()

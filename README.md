@@ -68,6 +68,10 @@ clean.dependsOn cleanCompileSass
 
 # Version history
 
+### 1.0.7
+
+* made `javascriptsDir`, `imagesDir` and `importPath` optional.
+
 ### 1.0.6
 
 * added ability to specify `importPath`.
