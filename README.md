@@ -46,8 +46,6 @@ compass {
 }
 ```
 
-These are equivalent to the `--css-dir`, and `--sass-dir` command line options for Compass.
-
 ### Configuration parameters
 
 The full set of parameters supported by the plugin is…
@@ -59,29 +57,29 @@ The full set of parameters supported by the plugin is…
 
 #### Paths
 
-* `cssDir` (**required**): the target directory where compiled CSS is output. *Equivalent to `--css-dir`.*
-* `sassDir` (**required**): the source directory where you keep `.scss` and/or `.sass` files. *Equivalent to `--sass-dir`.*
-* `imagesDir`: the source directory where you keep image files. *Equivalent to `--images-dir`.*
-* `javascriptsDir`: the source directory where you keep image files. You don't need to specify this unless you have Compass extensions in your scripts. *Equivalent to `--javascripts-dir`.*
-* `fontsDir`: the source directory where you keep fonts. *Equivalent to `--fonts-dir`.*
-* `importPath`: a set of directories containing other Sass stylesheets. Specifying this allows you to reference those stylesheets in `@import` directives. *Equivalent to `--fonts-dir`.*
+* `cssDir` **required**: the target directory where compiled CSS is output. Equivalent to `--css-dir`.
+* `sassDir` **required**: the source directory where you keep *.scss* and/or *.sass* files. Equivalent to `--sass-dir`.
+* `imagesDir`: the source directory where you keep image files. Equivalent to `--images-dir`.
+* `javascriptsDir`: the source directory where you keep image files. You don't need to specify this unless you have Compass extensions in your scripts. Equivalent to `--javascripts-dir`.
+* `fontsDir`: the source directory where you keep fonts. Equivalent to `--fonts-dir`.
+* `importPath`: a set of directories containing other Sass stylesheets. Specifying this allows you to reference those stylesheets in `@import` directives. Equivalent to `--fonts-dir`.
 
 #### Compilation options
 
-* `debugInfo`: if `true` (the default) Compass adds debug information to the compiled CSS. *Equivalent to `--debug-info` if set to `true` or `--no-debug-info` if set to `false`.*
-* `dryRun`: if `true` Compass will just output what it will do without actually doing it. *Equivalent to `--dry-run`.*
-* `environment`: sets default options when set to `'development'` (the default) or `'production'`. *Equivalent to `--environment`.*
-* `force`: if `true` Compass will overwrite existing files. *Equivalent to `--force`.*
-* `noLineComments`: if `true` Compass will not output line comments to the compiled CSS files. *Equivalent to `--no-line-comments`.*
-* `outputStyle`: selects the style for compiled CSS. One of `nested`, `expanded`, `compact` (the default) or `compressed`. *Eqivalent to `--output-style`.*
-* `projectType`: tells Compass what type of app you have. Valid options are `stand_alone` (the default) or `rails`. *Equivalent to `--app`.*
-* `relativeAssets`: if `true` Compass will generate relative urls to assets. *Equivalent to `--relative-assets`.*
+* `debugInfo`: if *true* (the default) Compass adds debug information to the compiled CSS. Equivalent to `--debug-info` if set to *true* or `--no-debug-info` if set to *false*.
+* `dryRun`: if *true* Compass will just output what it will do without actually doing it. Equivalent to `--dry-run`.
+* `environment`: sets default options when set to *'development'* (the default) or *'production'*. Equivalent to `--environment`.
+* `force`: if *true* Compass will overwrite existing files. Equivalent to `--force`.
+* `noLineComments`: if *true* Compass will not output line comments to the compiled CSS files. Equivalent to `--no-line-comments`.
+* `outputStyle`: selects the style for compiled CSS. One of *nested*, *expanded*, *compact* (the default) or *compressed*. Eqivalent to `--output-style`.
+* `projectType`: tells Compass what type of app you have. Valid options are *stand_alone* (the default) or *rails*. Equivalent to `--app`.
+* `relativeAssets`: if *true* Compass will generate relative urls to assets. Equivalent to `--relative-assets`.
 
 #### Command line output
 
-* `boring`: if `true` colorized output is disabled. *Equivalent to `--boring`.*
-* `quiet`: if `true` Compass output is suppressed. *Equivalent to `--quiet`.*
-* `trace`: if `true` Compass displays full stack traces on error. *Equivalent to `--trace`.*
+* `boring`: if *true* colorized output is disabled. Equivalent to `--boring`.
+* `quiet`: if *true* Compass output is suppressed. Equivalent to `--quiet`.
+* `trace`: if *true* Compass displays full stack traces on error. Equivalent to `--trace`.
 
 ## Using with other tasks
 
