@@ -3,3 +3,4 @@
 /gradle.properties
 /.idea/
 /*.iml
+/.gradletasknamecache
