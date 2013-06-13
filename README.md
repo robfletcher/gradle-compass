@@ -30,7 +30,7 @@ buildscript {
 		maven { url 'http://dl.bintray.com/robfletcher/gradle-plugins' }
 	}
 	dependencies {
-		classpath 'org.gradle.plugins:gradle-compass:1.0'
+		classpath 'org.gradle.plugins:gradle-compass:1.0.7'
 	}
 }
 ```
