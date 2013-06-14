@@ -52,7 +52,7 @@ The full set of parameters supported by the plugin is…
 
 #### JRuby options
 
-* `gemPath`: the directory where the plugin will install Ruby gems. Defaults to `*<project dir>*/.jruby/gems`.
+* `gemPath`: the directory where the plugin will install Ruby gems. Defaults to `<project dir>/.jruby/gems`.
 * `encoding`: the file encoding used by JRuby. The default is your platform default encoding.
 
 #### Paths
