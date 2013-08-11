@@ -20,10 +20,14 @@ class CompassPlugin implements Plugin<Project> {
 			gems = 'compass'
 		}
 		def compileSass = project.task('compileSass', type: CompassTask) {
+			group "Build"
+			description "Compiles Sass stylesheets to CSS"
 			background = false
 			command = "compile"
 		}
 		def watchSass = project.task('watchSass', type: CompassTask) {
+			group "Build"
+			description "Compiles Sass stylesheets to CSS when they change"
 			background = true
 			command = "watch"
 			outputs.upToDateWhen { false }
