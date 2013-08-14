@@ -1,12 +1,15 @@
 package org.gradle.plugins.compass
 
+import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.OutputDirectory
 
 class InstallGems extends JRubyTask {
 
 	@OutputDirectory
 	File gemPath
-	String gems
+
+	@Input
+	Collection<String> gems
 
 	InstallGems() {
 		doFirst {
@@ -21,7 +24,8 @@ class InstallGems extends JRubyTask {
 		args << '-i' << getGemPath()
 		args << '--no-rdoc'
 		args << '--no-ri'
-		args << gems
+		for (gem in getGems()) args << gem
+		logger.warn(args.join(" "))
 		return args
 	}
 }

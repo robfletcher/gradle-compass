@@ -16,9 +16,7 @@ class CompassPlugin implements Plugin<Project> {
 
 		createConfiguration()
 
-		def installCompass = project.task('installCompass', type: InstallGems) {
-			gems = 'compass'
-		}
+		def installCompass = project.task('installCompass', type: InstallGems)
 		def compileSass = project.task('compileSass', type: CompassTask) {
 			group "Build"
 			description "Compiles Sass stylesheets to CSS"
@@ -53,6 +51,7 @@ class CompassPlugin implements Plugin<Project> {
 		extension.with {
 			encoding = Charset.defaultCharset().name()
 			gemPath = project.file('.jruby/gems')
+			gems = ["compass"]
 			cssDir = project.file('build/css')
 			sassDir = project.file('src/main/sass')
 
@@ -83,6 +82,11 @@ class CompassPlugin implements Plugin<Project> {
 			task.conventionMapping.with {
 				encoding = { extension.encoding }
 				gemPath = { extension.gemPath }
+			}
+		}
+		project.tasks.withType(InstallGems) { InstallGems task ->
+			task.conventionMapping.with {
+				gems = { extension.gems }
 			}
 		}
 		project.tasks.withType(CompassTask) { CompassTask task ->

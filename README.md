@@ -16,7 +16,7 @@ Compiles and watches all SASS files. Equivalent to the `compass watch` command. 
 
 ### installCompass
 
-Installs the Compass Ruby gem. This is executed automatically by the `compileSass` and `watchSass` tasks.
+Installs the Compass Ruby gem and any additional gems you specify. This is executed automatically by the `compileSass` and `watchSass` tasks.
 
 ## Installation
 
@@ -53,6 +53,7 @@ The full set of parameters supported by the plugin is…
 #### JRuby options
 
 * `gemPath`: the directory where the plugin will install Ruby gems. Defaults to `<project dir>/.jruby/gems`.
+* `gems`: the names of the gems to install. The default is `["compass"]`.
 * `encoding`: the file encoding used by JRuby. The default is your platform default encoding.
 
 #### Paths
@@ -92,6 +93,10 @@ clean.dependsOn cleanCompileSass
 ```
 
 # Version history
+
+### 1.0.8
+
+* added ability to specify additional gems.
 
 ### 1.0.7
 

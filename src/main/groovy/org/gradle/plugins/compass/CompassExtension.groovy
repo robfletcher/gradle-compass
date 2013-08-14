@@ -6,6 +6,7 @@ class CompassExtension {
 
 	File gemPath
 	String encoding
+	Collection<String> gems
 
 	File cssDir
 	File sassDir
