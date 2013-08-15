@@ -82,10 +82,6 @@ class CompassPlugin implements Plugin<Project> {
 			task.conventionMapping.with {
 				encoding = { extension.encoding }
 				gemPath = { extension.gemPath }
-			}
-		}
-		project.tasks.withType(InstallGems) { InstallGems task ->
-			task.conventionMapping.with {
 				gems = { extension.gems }
 			}
 		}

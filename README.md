@@ -94,6 +94,10 @@ clean.dependsOn cleanCompileSass
 
 # Version history
 
+### 1.0.9
+
+* use additional gems without needing a *config.rb* file.
+
 ### 1.0.8
 
 * added ability to specify additional gems.

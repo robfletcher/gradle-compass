@@ -68,6 +68,10 @@ class CompassTask extends JRubyTask {
 			args << '-I' << importDir
 		}
 
+		for (gem in getGems()) {
+			if (gem != "compass") args << '--require' << gem
+		}
+
 		args << '--app' << getProjectType()
 		args << '--environment' << getEnvironment()
 		args << '--output-style' << getOutputStyle()

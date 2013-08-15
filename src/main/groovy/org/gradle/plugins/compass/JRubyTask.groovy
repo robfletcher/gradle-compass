@@ -1,12 +1,15 @@
 package org.gradle.plugins.compass
 
 import org.gradle.api.DefaultTask
-import org.gradle.api.tasks.TaskAction
+import org.gradle.api.tasks.*
 import static org.gradle.plugins.compass.CompassPlugin.CONFIGURATION_NAME
 
 abstract class JRubyTask extends DefaultTask {
 
 	String encoding
+
+	@Input
+	Collection<String> gems
 
 	@TaskAction
 	void jrubyexec() {
