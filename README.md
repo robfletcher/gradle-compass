@@ -27,6 +27,7 @@ apply plugin: 'compass'
 
 buildscript {
 	repositories {
+		mavenCentral()
 		maven { url 'http://dl.bintray.com/robfletcher/gradle-plugins' }
 	}
 	dependencies {
