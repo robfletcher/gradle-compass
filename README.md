@@ -64,7 +64,7 @@ The full set of parameters supported by the plugin is…
 * `imagesDir`: the source directory where you keep image files. Equivalent to `--images-dir`.
 * `javascriptsDir`: the source directory where you keep image files. You don't need to specify this unless you have Compass extensions in your scripts. Equivalent to `--javascripts-dir`.
 * `fontsDir`: the source directory where you keep fonts. Equivalent to `--fonts-dir`.
-* `importPath`: a set of directories containing other Sass stylesheets. Specifying this allows you to reference those stylesheets in `@import` directives. Equivalent to `--fonts-dir`.
+* `importPath`: a set of directories containing other Sass stylesheets. Specifying this allows you to reference those stylesheets in `@import` directives. Equivalent to `--additional_import_paths`.
 
 #### Compilation options
 
