@@ -3,7 +3,7 @@ apply plugin: "maven-publish"
 apply plugin: "maven"
 
 group = "org.gradle.plugins"
-version = "1.0.9"
+version = "1.0.10-SNAPSHOT"
 
 dependencies {
 	compile gradleApi()
