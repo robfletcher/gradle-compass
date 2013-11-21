@@ -54,6 +54,7 @@ class CompassPlugin implements Plugin<Project> {
 			gems = ["compass"]
 			cssDir = project.file('build/css')
 			sassDir = project.file('src/main/sass')
+            jvmArgs = ''
 
 			def defaultImagesDir = new File('src/main/images')
 			if (defaultImagesDir.isDirectory()) {
@@ -83,6 +84,7 @@ class CompassPlugin implements Plugin<Project> {
 				encoding = { extension.encoding }
 				gemPath = { extension.gemPath }
 				gems = { extension.gems }
+                jvmArgs = { extension.jvmArgs }
 			}
 		}
 		project.tasks.withType(CompassTask) { CompassTask task ->
