@@ -7,6 +7,7 @@ class CompassExtension {
 	File gemPath
 	String encoding
     String jvmArgs
+    String jrubyVersion
 	Collection<String> gems
 
 	File cssDir
