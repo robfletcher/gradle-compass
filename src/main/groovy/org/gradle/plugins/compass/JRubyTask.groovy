@@ -15,22 +15,24 @@ abstract class JRubyTask extends DefaultTask {
     @Input
     Collection<String> gems
 
-	@TaskAction
-	void jrubyexec() {
+	void jrubyexec(Iterable<String> jrubyArgs) {
 		project.javaexec {
 			classpath = project.configurations[CONFIGURATION_NAME]
 			main = 'org.jruby.Main'
 			it.jvmArgs getCombinedArgs()
 			environment 'GEM_PATH', getGemPath()
 			environment 'PATH', "${getGemPath()}/bin"
-			args getJRubyArguments()
+			args jrubyArgs
 		}
 	}
     
     protected List<String> getCombinedArgs() {
        "${getJvmArgs()} -Dfile.encoding=${getEncoding()}".trim().tokenize()
     }
+    
+    protected Collection<RubyGem> getRubyGems() {
+        getGems()?.collect { new RubyGem(it) }
+    }
 
 	abstract File getGemPath()
-	protected abstract Iterable<String> getJRubyArguments()
 }
