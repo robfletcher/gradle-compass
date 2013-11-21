@@ -53,9 +53,11 @@ The full set of parameters supported by the plugin is…
 
 #### JRuby options
 
+* `jrubyVersion`: the version of JRuby to install. The current Default is to `1.7.8`.
 * `gemPath`: the directory where the plugin will install Ruby gems. Defaults to `<project dir>/.jruby/gems`.
-* `gems`: the names of the gems to install. The default is `["compass"]`.
+* `gems`: the names of the gems to install. The default is `["compass"]`. Optionally, you can specify the version of the gem using the format `gem-name:version`.
 * `encoding`: the file encoding used by JRuby. The default is your platform default encoding.
+* `jvmArgs`: additional arguments to pass to the JVM when running JRuby. The default is blank.
 
 #### Paths
 
