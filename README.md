@@ -34,6 +34,10 @@ buildscript {
 		classpath 'org.gradle.plugins:gradle-compass:1.0.7'
 	}
 }
+
+repositories {
+	mavenCentral() // or any other repository containing JRuby
+}
 ```
 
 ## Configuration
