@@ -1,12 +1,13 @@
 package org.gradle.plugins.compass
 
 import org.gradle.api.*
+
 import java.nio.charset.*
 
 class CompassPlugin implements Plugin<Project> {
 
 	public static final CONFIGURATION_NAME = 'compass'
-	public static final DEFAULT_JRUBY_DEPENDENCY = 'org.jruby:jruby-complete:1.7.3'
+	public static final DEFAULT_JRUBY_DEPENDENCY = 'org.jruby:jruby-complete'
 
 	private Project project
 	private CompassExtension extension
@@ -39,11 +40,14 @@ class CompassPlugin implements Plugin<Project> {
 	}
 
 	private void createConfiguration() {
-		project.configurations.create(CONFIGURATION_NAME)
-		def config = project.configurations[CONFIGURATION_NAME]
-		if (config.dependencies.empty) {
-			project.dependencies.add(CONFIGURATION_NAME, DEFAULT_JRUBY_DEPENDENCY)
-		}
+        project.configurations.maybeCreate(CONFIGURATION_NAME)
+        // must be done after evaluate so that properties will be set
+        project.afterEvaluate {
+            def config = project.configurations[CONFIGURATION_NAME]
+            if (config.dependencies.empty) {
+                project.dependencies.add(CONFIGURATION_NAME, "$DEFAULT_JRUBY_DEPENDENCY:${extension.jrubyVersion}")
+            }
+        }
 	}
 
 	private void createExtension() {
@@ -54,6 +58,8 @@ class CompassPlugin implements Plugin<Project> {
 			gems = ["compass"]
 			cssDir = project.file('build/css')
 			sassDir = project.file('src/main/sass')
+            jvmArgs = ''
+            jrubyVersion = '1.7.8'
 
 			def defaultImagesDir = new File('src/main/images')
 			if (defaultImagesDir.isDirectory()) {
@@ -83,6 +89,7 @@ class CompassPlugin implements Plugin<Project> {
 				encoding = { extension.encoding }
 				gemPath = { extension.gemPath }
 				gems = { extension.gems }
+                jvmArgs = { extension.jvmArgs }
 			}
 		}
 		project.tasks.withType(CompassTask) { CompassTask task ->
