@@ -52,7 +52,6 @@ class CompassTask extends JRubyTask {
     }
   }
 
-  @Override
   protected Iterable<String> getJRubyArguments() {
     def args = []
     args << '-X-C'
@@ -67,8 +66,8 @@ class CompassTask extends JRubyTask {
       args << '-I' << importDir
     }
 
-    for (gem in getGems()) {
-      if (gem != "compass") args << '--require' << gem
+    for (gem in getRubyGems()) {
+      if (gem != "compass") args << '--require' << gem.name
     }
 
     args << '--app' << getProjectType()
@@ -97,14 +96,13 @@ class CompassTask extends JRubyTask {
   }
 
   @TaskAction
-  @Override
-  void jrubyexec() {
+  void runCompassTask() {
     if (background) {
       Thread.start {
-        super.jrubyexec()
+        jrubyexec(getJRubyArguments())
       }
     } else {
-      super.jrubyexec()
+      jrubyexec(getJRubyArguments())
     }
   }
 }
