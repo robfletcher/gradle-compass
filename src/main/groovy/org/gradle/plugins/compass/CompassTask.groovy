@@ -60,7 +60,7 @@ class CompassTask extends JRubyTask {
 		args << '-S' << 'compass' << command
 		args << '--sass-dir' << getSassDir()
 		args << '--css-dir' << getCssDir()
-		if (getImagesDir()) args << '--images-dir' << getImagesDir()
+        if (getImagesDir()) args << '--images-dir' << getImagesDirRelativeToProjectPath()
 		if (getJavascriptsDir()) args << '--javascripts-dir' << getJavascriptsDir()
 		if (getFontsDir()) args << '--fonts-dir' << getFontsDir()
 
@@ -91,7 +91,11 @@ class CompassTask extends JRubyTask {
 		if (getTrace()) args << '--trace'
 
 		return args
-	}
+    }
+
+    String getImagesDirRelativeToProjectPath() {
+        return (getImagesDir().path - project.projectDir.path)[1..-1]
+    }
 
 	@TaskAction
 	@Override
