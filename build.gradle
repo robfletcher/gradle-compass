@@ -39,7 +39,7 @@ task sourceJar(type: Jar) {
 //}
 
 task wrapper(type: Wrapper) {
-	gradleVersion = "1.6"
+	gradleVersion = "1.9"
 }
 
 apply from: "gradle/integration-tests.gradle"
