@@ -92,7 +92,7 @@ class CompassTask extends JRubyTask {
   }
 
   String getImagesDirRelativeToProjectPath() {
-    return (getImagesDir().path - project.projectDir.path)[1..-1]
+    return project.projectDir.path.toURI().relativize( getImagesDir().path.toURI() ).toString()
   }
 
   @TaskAction
