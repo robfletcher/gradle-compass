@@ -27,4 +27,43 @@ class ImageGenerationSpec extends Specification {
     project.fileTree("src/main/webapp/img").include("*.png").files.size() == 1
     project.fileTree("images").include("*.png").files.size() == 0
   }
+
+  def "sprites image is generated inside images dir when using one gem jars dependencies"() {
+    given:
+    def project = new ProjectWrapper(project: ProjectBuilder.builder().withProjectDir(spritesProjectDir).build())
+    def buildScript = [buildScript:"buildWithGemJar.gradle"]
+
+    when:
+    project.runTasks(buildScript,"compileSass")
+
+    then:
+    project.fileTree("src/main/webapp/img").include("*.png").files.size() == 1
+    project.fileTree("images").include("*.png").files.size() == 0
+  }
+
+  def "sprites image is generated inside images dir when using several gem jars dependencies"() {
+    given:
+    def project = new ProjectWrapper(project: ProjectBuilder.builder().withProjectDir(spritesProjectDir).build())
+    def buildScript = [buildScript:"buildWithSeveralDependenciesInGemJar.gradle"]
+
+    when:
+    project.runTasks(buildScript,"compileSass")
+
+    then:
+    project.fileTree("src/main/webapp/img").include("*.png").files.size() == 1
+    project.fileTree("images").include("*.png").files.size() == 0
+  }
+
+  def "sprites image is generated inside images dir when using No gem jars dependencies"() {
+    given:
+    def project = new ProjectWrapper(project: ProjectBuilder.builder().withProjectDir(spritesProjectDir).build())
+    def buildScript = [buildScript:"buildWithNoDependenciesInGemJar.gradle"]
+
+    when:
+    project.runTasks(buildScript,"compileSass")
+
+    then:
+    project.fileTree("src/main/webapp/img").include("*.png").files.size() == 1
+    project.fileTree("images").include("*.png").files.size() == 0
+  }
 }

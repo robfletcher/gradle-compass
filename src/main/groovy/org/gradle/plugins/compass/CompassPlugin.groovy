@@ -16,13 +16,15 @@ class CompassPlugin implements Plugin<Project> {
 
     createConfiguration()
 
-    def installCompass = project.task('installCompass', type: InstallGems)
+    def installCompass = project.task('installCompass', type: DependenciesResolver)
+
     def compileSass = project.task('compileSass', type: CompassTask) {
       group "Build"
       description "Compiles Sass stylesheets to CSS"
       background = false
       command = "compile"
     }
+
     def watchSass = project.task('watchSass', type: CompassTask) {
       group "Build"
       description "Compiles Sass stylesheets to CSS when they change"
@@ -49,12 +51,13 @@ class CompassPlugin implements Plugin<Project> {
     }
   }
 
-  private void createExtension() {
+    private void createExtension() {
     extension = project.extensions.create('compass', CompassExtension)
     extension.with {
       encoding = Charset.defaultCharset().name()
       gemPath = project.file('.jruby/gems')
       gems = ["compass"]
+      gemJars = []
       cssDir = project.file('build/css')
       sassDir = project.file('src/main/sass')
       jvmArgs = ''
@@ -89,6 +92,7 @@ class CompassPlugin implements Plugin<Project> {
         gemPath = { extension.gemPath }
         gems = { extension.gems }
         jvmArgs = { extension.jvmArgs }
+        gemJars = { extension.gemJars }
       }
     }
     project.tasks.withType(CompassTask) { CompassTask task ->

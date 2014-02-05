@@ -15,6 +15,9 @@ abstract class JRubyTask extends DefaultTask {
   @Input
   Collection<String> gems
 
+  @Input
+  Collection<String> gemJars
+
   void jrubyexec(Iterable<String> jrubyArgs) {
     project.javaexec {
       classpath = project.configurations[CONFIGURATION_NAME]

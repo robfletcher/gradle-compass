@@ -22,8 +22,9 @@ class ProjectWrapper {
 
     def startParameter = project.gradle.startParameter.newBuild()
     startParameter.projectDir = project.projectDir
-    startParameter.buildFile = new File(project.projectDir, args.buildScript ?: "build.gradle")
+    startParameter.buildFile = new File(project.projectDir, args.buildScript ? args.buildScript : "build.gradle")
     startParameter.taskNames = tasks
+    startParameter.recompileScripts = true
     def launcher = GradleLauncher.newInstance(startParameter)
     launcher.addListener(new GradleBuildTestListener())
     def result = launcher.run()

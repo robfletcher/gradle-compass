@@ -9,6 +9,8 @@ class CompassExtension {
   String jvmArgs
   String jrubyVersion
   Collection<String> gems
+  Collection<String> gemJars
+
 
   File cssDir
   File sassDir
