@@ -1,0 +1,13 @@
+apply plugin: "compass"
+
+repositories {
+  mavenCentral()
+  mavenLocal()
+}
+
+compass {
+  cssDir = file("src/main/webapp/css")
+  sassDir = file("src/main/webapp/sass")
+  imagesDir = file("src/main/webapp/img")
+  gemJars = []
+}
