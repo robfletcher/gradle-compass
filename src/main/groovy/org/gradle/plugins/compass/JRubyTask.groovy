@@ -20,8 +20,9 @@ abstract class JRubyTask extends DefaultTask {
       classpath = project.configurations[CONFIGURATION_NAME]
       main = 'org.jruby.Main'
       it.jvmArgs getCombinedArgs()
+      environment 'GEM_HOME', getGemPath()
       environment 'GEM_PATH', getGemPath()
-      environment 'PATH', "${getGemPath()}/bin"
+      environment 'PATH', "${getGemPath()}/bin${File.pathSeparator}${System.getenv('PATH')}"
       args jrubyArgs
     }
   }

@@ -58,7 +58,7 @@ class CompassPlugin implements Plugin<Project> {
       cssDir = project.file('build/css')
       sassDir = project.file('src/main/sass')
       jvmArgs = ''
-      jrubyVersion = '1.7.8'
+      jrubyVersion = '1.7.10'
 
       def defaultImagesDir = new File('src/main/images')
       if (defaultImagesDir.isDirectory()) {
