@@ -2,23 +2,34 @@ package org.gradle.plugins.compass
 
 import org.gradle.api.tasks.*
 
-class InstallGems extends JRubyTask {
+class DependenciesResolver extends JRubyTask {
 
   @OutputDirectory
   File gemPath
 
-  InstallGems() {
+    DependenciesResolver() {
     doFirst {
       getGemPath().mkdirs()
     }
   }
 
   @TaskAction
-  void installGems() {
-    for (gem in getRubyGems()) {
-      jrubyexec(getJRubyArguments(gem))
+  void install() {
+    if (gemJars?.empty) {
+        for (gem in getRubyGems()) {
+            jrubyexec(getJRubyArguments(gem))
+        }
+    }
+    else {
+        addGemJarsDependencies()
     }
   }
+
+  def addGemJarsDependencies() {
+    for(String jarDependency:gemJars) {
+        project.dependencies.add(CompassPlugin.CONFIGURATION_NAME, jarDependency)
+    }
+ }
 
   protected Iterable<String> getJRubyArguments(RubyGem rubyGem) {
     def args = []
