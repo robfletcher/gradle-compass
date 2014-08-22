@@ -1,0 +1,45 @@
+apply plugin: "groovy"
+apply plugin: "maven-publish"
+
+group = "co.freeside"
+version = "1.0.10"
+
+repositories {
+  jcenter()
+}
+
+dependencies {
+  compile gradleApi()
+  compile localGroovy()
+}
+
+task sourceJar(type: Jar) {
+  from sourceSets.main.allGroovy, sourceSets.main.resources
+}
+
+publishing {
+  publications {
+    mavenJava(MavenPublication) {
+      from components.java
+
+      artifact sourceJar {
+        classifier "sources"
+      }
+    }
+  }
+  repositories {
+    maven {
+      url "https://api.bintray.com/maven/robfletcher/gradle-plugins/gradle-compass"
+      credentials {
+        username = bintrayUsername
+        password = bintrayApiKey
+      }
+    }
+  }
+}
+
+task wrapper(type: Wrapper) {
+  gradleVersion = "2.0"
+}
+
+// apply from: "gradle/integration-tests.gradle"
