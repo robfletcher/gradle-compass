@@ -49,4 +49,4 @@ task wrapper(type: Wrapper) {
   gradleVersion = "2.0"
 }
 
-// apply from: "gradle/integration-tests.gradle"
+apply from: "gradle/integration-test.gradle"
