@@ -98,6 +98,25 @@ processResources.inputs.files compileSass
 run.dependsOn watchSass
 clean.dependsOn cleanCompileSass
 ```
+#### Advanced Gem Install Options
+
+You can specify additional options to `gem install`:
+
+```groovy
+compass {
+	gems = [
+		[
+			name: "compass",
+			version: "0.12.7",
+		],
+		[
+			name: "compass-css-arrow",
+			version: "0.0.4",
+			opts: ["--ignore-dependencies"],
+		],
+	]
+}
+```
 
 # Version history
 

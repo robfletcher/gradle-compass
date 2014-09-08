@@ -8,7 +8,7 @@ class CompassExtension {
   String encoding
   String jvmArgs
   String jrubyVersion
-  Collection<String> gems
+  Collection gems
   Collection<String> gemJars
 
 

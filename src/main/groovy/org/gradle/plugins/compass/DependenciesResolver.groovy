@@ -38,6 +38,7 @@ class DependenciesResolver extends JRubyTask {
     args << '-i' << getGemPath()
     args << '--no-rdoc'
     args << '--no-ri'
+    args.addAll(rubyGem.opts)
     args << rubyGem.name
     if (rubyGem.version != null) {
       args << '-v'

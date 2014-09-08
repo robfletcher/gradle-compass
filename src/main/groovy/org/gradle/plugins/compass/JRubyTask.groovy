@@ -13,7 +13,7 @@ abstract class JRubyTask extends DefaultTask {
   String jvmArgs
 
   @Input
-  Collection<String> gems
+  Collection gems
 
   @Input
   Collection<String> gemJars
