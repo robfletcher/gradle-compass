@@ -33,6 +33,12 @@ class CompassPlugin implements Plugin<Project> {
       outputs.upToDateWhen { false }
     }
 
+    project.task('cleanCompileTask') << {
+      fileTree(dir: extension.cssDir, include: '**/*.css').each {
+        delete it
+      }
+    }
+
     compileSass.dependsOn(installCompass)
     watchSass.dependsOn(installCompass)
 
@@ -51,7 +57,7 @@ class CompassPlugin implements Plugin<Project> {
     }
   }
 
-    private void createExtension() {
+  private void createExtension() {
     extension = project.extensions.create('compass', CompassExtension)
     extension.with {
       encoding = Charset.defaultCharset().name()
