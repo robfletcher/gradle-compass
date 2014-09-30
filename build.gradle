@@ -1,8 +1,9 @@
+apply plugin: "eclipse"
 apply plugin: "groovy"
 apply plugin: "maven-publish"
 
 group = "org.gradle.plugins"
-version = "1.0.10"
+version = "1.0.10.1"
 
 repositories {
   mavenCentral()
