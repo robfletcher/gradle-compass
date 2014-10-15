@@ -17,6 +17,8 @@ class CompassTask extends JRubyTask {
   boolean quiet
   boolean trace
 
+  String sourcesMirror
+  
   String environment
   String outputStyle
   String projectType
@@ -97,11 +99,17 @@ class CompassTask extends JRubyTask {
 
   @TaskAction
   void runCompassTask() {
-    if (background) {
-      Thread.start {
-        jrubyexec(getJRubyArguments())
+      if (getSourcesMirror()){
+        logger.info('Adding source mirror.')
+        def args = []
+        args << '-S' << 'gem' << 'sources' << '--add' << getSourcesMirror()
+        jrubyexec(args)
       }
-    } else {
+      if (background) {
+        Thread.start {
+          jrubyexec(getJRubyArguments())
+        }
+      } else {
       jrubyexec(getJRubyArguments())
     }
   }

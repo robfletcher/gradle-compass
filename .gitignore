@@ -6,3 +6,8 @@
 /*.iml
 /*.iws
 /.gradletasknamecache
+/bin/
+
+.classpath
+.project
+.settings/*

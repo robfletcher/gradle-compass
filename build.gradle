@@ -1,45 +1,47 @@
+apply plugin: "idea"
+apply plugin: "eclipse"
 apply plugin: "groovy"
 apply plugin: "maven-publish"
 
 group = "org.gradle.plugins"
-version = "1.0.10"
+version = "1.0.11"
 
 repositories {
-  mavenCentral()
+    mavenCentral()
 }
 
 dependencies {
-  compile gradleApi()
-  compile localGroovy()
+    compile gradleApi()
+    compile localGroovy()
 }
 
 task sourceJar(type: Jar) {
-  from sourceSets.main.allGroovy, sourceSets.main.resources
+    from sourceSets.main.allGroovy, sourceSets.main.resources
 }
 
 publishing {
-	publications {
-		mavenJava(MavenPublication) {
-			from components.java
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
 
-			artifact sourceJar {
-				classifier "sources"
-			}
-		}
-	}
-	repositories {
-		maven {
-			url "https://api.bintray.com/maven/robfletcher/gradle-plugins/gradle-compass"
-			credentials {
-				username = bintray_username
-				password = bintray_api_key
-			}
-		}
-	}
+            artifact sourceJar {
+                classifier "sources"
+            }
+        }
+    }
+    repositories {
+        maven {
+            url "https://api.bintray.com/maven/robfletcher/gradle-plugins/gradle-compass"
+            credentials {
+                username = bintray_username
+                password = bintray_api_key
+            }
+        }
+    }
 }
 
 task wrapper(type: Wrapper) {
-  gradleVersion = "1.9"
+    gradleVersion = "1.9"
 }
 
 apply from: "gradle/integration-tests.gradle"
