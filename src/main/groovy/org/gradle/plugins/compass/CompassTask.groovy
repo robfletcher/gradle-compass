@@ -99,13 +99,17 @@ class CompassTask extends JRubyTask {
 
   @TaskAction
   void runCompassTask() {
-    if (background) {
-      Thread.start {
-		if (getSourcesMirror()) jrubyexec(' -S gem sources --add '.getSourcesMirror())
-        jrubyexec(getJRubyArguments())
+      if (getSourcesMirror()){
+        logger.info('Adding source mirror.')
+        def args = []
+        args << '-S' << 'gem' << 'sources' << '--add' << getSourcesMirror()
+        jrubyexec(args)
       }
-    } else {
-	  if (getSourcesMirror()) jrubyexec(' -S gem sources --add '.getSourcesMirror())
+      if (background) {
+        Thread.start {
+          jrubyexec(getJRubyArguments())
+        }
+      } else {
       jrubyexec(getJRubyArguments())
     }
   }

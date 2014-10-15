@@ -31,5 +31,5 @@ class CompassExtension {
   String environment
   String outputStyle
   String projectType
-
+  String sourcesMirror
 }

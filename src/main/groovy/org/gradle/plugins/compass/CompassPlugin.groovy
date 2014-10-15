@@ -111,6 +111,7 @@ class CompassPlugin implements Plugin<Project> {
         importPath = { extension.importPath }
         projectType = { extension.projectType }
         environment = { extension.environment }
+        sourcesMirror = { extension.sourcesMirror }
         outputStyle = { extension.outputStyle }
         fontsDir = { extension.fontsDir }
         noLineComments = { extension.noLineComments }
