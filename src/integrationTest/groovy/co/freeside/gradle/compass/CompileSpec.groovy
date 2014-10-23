@@ -1,18 +1,49 @@
-package groovy.co.freeside.gradle.compass
+package co.freeside.gradle.compass
 
+import com.steadystate.css.parser.CSSOMParser
+import com.steadystate.css.parser.SACParserCSS3
 import org.gololang.gradle.test.integration.framework.IntegrationSpec
+import org.w3c.css.sac.InputSource
+import org.w3c.dom.css.CSSRuleList
+import spock.lang.Ignore
 
 class CompileSpec extends IntegrationSpec {
 
-  final COMPILE_TASK_NAME = "compileCompass"
+  final COMPILE_TASK_NAME = "compassCompile"
+
+  protected static String localRepoLocation() {
+    System.properties."localRepo.location"
+  }
 
   def setup() {
     buildFile << """
-      apply plugin: "compass"
+      buildscript {
+        repositories {
+          maven {
+            url "file://${localRepoLocation()}"
+            jcenter()
+          }
+        }
+        dependencies {
+          classpath "co.freeside:compass-gradle-plugin:1.0.10"
+        }
+        configurations.all {
+          resolutionStrategy.cacheDynamicVersionsFor 0, "seconds"
+        }
+      }
+      apply plugin: "co.freeside.compass"
+
+      dependencies {
+        compass "rubygems:compass:+"
+      }
     """
   }
 
+  @Ignore("compass fails with no source files")
   def "compile is up to date for an empty sourceset"() {
+    given:
+    directory("src/main/sass")
+
     when:
     run COMPILE_TASK_NAME
 
@@ -23,18 +54,25 @@ class CompileSpec extends IntegrationSpec {
   def "compiles a basic .scss stylesheet"() {
     given:
     file("src/main/sass/basic.scss") << """
-      body { font-size: 16 * 1px; }
+      \$font: Georgia, serif;
+      body { font-family: \$font; }
     """
 
     when:
     run COMPILE_TASK_NAME
 
     then:
-    file("build/css/basic.css").text == """
-      body {
-        font-size: 16px;
-      }
-    """
+    with(stylesheet("build/stylesheets/basic.css")) {
+      item(0).cssText == "body { font-family: Georgia, serif }"
+    }
+  }
+
+  def parser = new CSSOMParser(new SACParserCSS3())
+
+  private CSSRuleList stylesheet(String path) {
+    file(path).withReader { r ->
+      parser.parseStyleSheet(new InputSource(r), null, null).cssRules
+    }
   }
 
 }

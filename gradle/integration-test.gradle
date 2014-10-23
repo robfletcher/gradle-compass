@@ -11,7 +11,7 @@ sourceSets {
 }
 
 task integrationTest(type: Test) {
-//  dependsOn install
+  dependsOn install
 
   testClassesDir = sourceSets.integrationTest.output.classesDir
   classpath = sourceSets.integrationTest.runtimeClasspath
@@ -19,7 +19,7 @@ task integrationTest(type: Test) {
 
   mustRunAfter test
 
-//  systemProperty "localRepo.location", "${buildDir.absolutePath}/localRepo"
+  systemProperty "localRepo.location", "${buildDir.absolutePath}/localRepo"
 }
 
 check.dependsOn integrationTest

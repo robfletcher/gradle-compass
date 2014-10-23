@@ -15,7 +15,6 @@
  */
 package org.gololang.gradle.test.integration.framework
 
-import groovy.transform.CompileStatic
 import org.gradle.tooling.BuildLauncher
 import org.gradle.tooling.GradleConnector
 import org.gradle.tooling.ProjectConnection
