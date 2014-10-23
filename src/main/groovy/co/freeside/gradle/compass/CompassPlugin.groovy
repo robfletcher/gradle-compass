@@ -36,6 +36,11 @@ class CompassPlugin implements Plugin<Project> {
     project.task("compassClean", type: JRubyExec) {
       group TASK_GROUP_NAME
       description "Remove generated files and the sass cache"
+      outputs.dir DEFAULT_CSS_DIR
+      jrubyArgs "-S"
+      script "compass"
+      scriptArgs "clean", "--sass-dir", DEFAULT_SASS_DIR, "--css-dir", DEFAULT_CSS_DIR
+      configuration CONFIGURATION_NAME
     }
   }
 }

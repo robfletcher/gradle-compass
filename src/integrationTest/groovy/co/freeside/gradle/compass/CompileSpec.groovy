@@ -4,8 +4,6 @@ import spock.lang.Ignore
 
 class CompileSpec extends CompassPluginSpec {
 
-  final COMPILE_TASK_NAME = "compassCompile"
-
   def setup() {
     buildFile << """
       buildscript {
@@ -74,6 +72,4 @@ class CompileSpec extends CompassPluginSpec {
     then:
     upToDate ":$COMPILE_TASK_NAME"
   }
-
-
 }

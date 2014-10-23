@@ -10,6 +10,8 @@ import spock.lang.Shared
 abstract class CompassPluginSpec extends IntegrationSpec {
 
   @Shared parser = new CSSOMParser(new SACParserCSS3())
+  protected final COMPILE_TASK_NAME = "compassCompile"
+  protected final CLEAN_TASK_NAME = "compassClean"
 
   protected static String localRepoLocation() {
     System.properties."localRepo.location"
