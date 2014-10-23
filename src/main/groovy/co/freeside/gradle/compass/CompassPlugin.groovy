@@ -17,6 +17,8 @@ class CompassPlugin implements Plugin<Project> {
     project.task("compassCompile", type: JRubyExec) {
       group TASK_GROUP_NAME
       description "Compile compass stylesheets"
+      inputs.dir "src/main/sass"
+      outputs.dir "build/stylesheets"
       jrubyArgs "-S"
       script "compass"
       scriptArgs "compile", "--sass-dir", "src/main/sass", "--css-dir", "build/stylesheets"

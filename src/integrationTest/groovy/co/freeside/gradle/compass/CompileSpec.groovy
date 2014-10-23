@@ -53,18 +53,38 @@ class CompileSpec extends IntegrationSpec {
 
   def "compiles a basic .scss stylesheet"() {
     given:
-    file("src/main/sass/basic.scss") << """
-      \$font: Georgia, serif;
-      body { font-family: \$font; }
-    """
+    file("src/main/sass/basic.scss") << '''
+      $font: Georgia, serif;
+      body { font-family: $font; }
+    '''
 
     when:
     run COMPILE_TASK_NAME
 
     then:
-    with(stylesheet("build/stylesheets/basic.css")) {
-      item(0).cssText == "body { font-family: Georgia, serif }"
+    with("build/stylesheets/basic.css") { path ->
+      fileExists path
+      with(stylesheet(path)) {
+        item(0).cssText == "body { font-family: Georgia, serif }"
+      }
     }
+  }
+
+  def "a subsequent execution is up-to-date"() {
+    given:
+    file("src/main/sass/basic.scss") << 'body { font-family: Georgia, serif; }'
+
+    and:
+    run COMPILE_TASK_NAME
+
+    expect:
+    fileExists "build/stylesheets/basic.css"
+
+    when:
+    run COMPILE_TASK_NAME
+
+    then:
+    upToDate ":$COMPILE_TASK_NAME"
   }
 
   def parser = new CSSOMParser(new SACParserCSS3())
