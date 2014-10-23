@@ -9,22 +9,24 @@ class CompassPlugin implements Plugin<Project> {
   private static final String TASK_GROUP_NAME = "compass"
   private static final String CONFIGURATION_NAME = "compass"
 
-  public static final String DEFAULT_SASS_DIR = "src/main/sass"
-  public static final String DEFAULT_CSS_DIR = "build/stylesheets"
-
   @Override
   void apply(Project project) {
     project.apply plugin: "com.github.jruby-gradle.base"
     project.configurations.create CONFIGURATION_NAME
+    project.extensions.create("compass", CompassExtension).with {
+      sassDir = project.file("src/main/sass")
+      cssDir = project.file("build/stylesheets")
+    }
 
     project.task("compassCompile", type: JRubyExec) {
+      println "compiling from $project.compass.sassDir"
       group TASK_GROUP_NAME
       description "Compile Sass stylesheets to CSS"
-      inputs.dir DEFAULT_SASS_DIR
-      outputs.dir DEFAULT_CSS_DIR
+      inputs.dir project.compass.sassDir
+      outputs.dir project.compass.cssDir
       jrubyArgs "-S"
       script "compass"
-      scriptArgs "compile", "--sass-dir", DEFAULT_SASS_DIR, "--css-dir", DEFAULT_CSS_DIR
+      scriptArgs "compile", "--sass-dir", project.compass.sassDir, "--css-dir", project.compass.cssDir
       configuration CONFIGURATION_NAME
     }
 
@@ -36,10 +38,10 @@ class CompassPlugin implements Plugin<Project> {
     project.task("compassClean", type: JRubyExec) {
       group TASK_GROUP_NAME
       description "Remove generated files and the sass cache"
-      outputs.dir DEFAULT_CSS_DIR
+      outputs.dir project.compass.cssDir
       jrubyArgs "-S"
       script "compass"
-      scriptArgs "clean", "--sass-dir", DEFAULT_SASS_DIR, "--css-dir", DEFAULT_CSS_DIR
+      scriptArgs "clean", "--sass-dir", project.compass.sassDir, "--css-dir", project.compass.cssDir
       configuration CONFIGURATION_NAME
     }
   }

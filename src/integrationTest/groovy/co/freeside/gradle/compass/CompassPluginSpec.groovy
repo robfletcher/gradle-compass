@@ -13,6 +13,30 @@ abstract class CompassPluginSpec extends IntegrationSpec {
   protected final COMPILE_TASK_NAME = "compassCompile"
   protected final CLEAN_TASK_NAME = "compassClean"
 
+  def setup() {
+    buildFile << """
+      buildscript {
+        repositories {
+          maven {
+            url "file://${localRepoLocation()}"
+            jcenter()
+          }
+        }
+        dependencies {
+          classpath "co.freeside:compass-gradle-plugin:1.0.10"
+        }
+        configurations.all {
+          resolutionStrategy.cacheDynamicVersionsFor 0, "seconds"
+        }
+      }
+      apply plugin: "co.freeside.compass"
+
+      dependencies {
+        compass "rubygems:compass:+"
+      }
+    """
+  }
+
   protected static String localRepoLocation() {
     System.properties."localRepo.location"
   }

@@ -4,30 +4,6 @@ import spock.lang.Ignore
 
 class CompileSpec extends CompassPluginSpec {
 
-  def setup() {
-    buildFile << """
-      buildscript {
-        repositories {
-          maven {
-            url "file://${localRepoLocation()}"
-            jcenter()
-          }
-        }
-        dependencies {
-          classpath "co.freeside:compass-gradle-plugin:1.0.10"
-        }
-        configurations.all {
-          resolutionStrategy.cacheDynamicVersionsFor 0, "seconds"
-        }
-      }
-      apply plugin: "co.freeside.compass"
-
-      dependencies {
-        compass "rubygems:compass:+"
-      }
-    """
-  }
-
   @Ignore("compass fails with no source files")
   def "compile is up to date for an empty sourceset"() {
     given:

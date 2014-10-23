@@ -3,28 +3,6 @@ package co.freeside.gradle.compass
 class CleanSpec extends CompassPluginSpec {
 
   def setup() {
-    buildFile << """
-      buildscript {
-        repositories {
-          maven {
-            url "file://${localRepoLocation()}"
-            jcenter()
-          }
-        }
-        dependencies {
-          classpath "co.freeside:compass-gradle-plugin:1.0.10"
-        }
-        configurations.all {
-          resolutionStrategy.cacheDynamicVersionsFor 0, "seconds"
-        }
-      }
-      apply plugin: "co.freeside.compass"
-
-      dependencies {
-        compass "rubygems:compass:+"
-      }
-    """
-
     file("src/main/sass/file1.scss") << 'body { font-family: Georgia, serif; }'
     file("src/main/sass/file2.scss") << 'body { font-size: 16px; }'
     run COMPILE_TASK_NAME
