@@ -1,19 +1,10 @@
 package co.freeside.gradle.compass
 
-import com.steadystate.css.parser.CSSOMParser
-import com.steadystate.css.parser.SACParserCSS3
-import org.gololang.gradle.test.integration.framework.IntegrationSpec
-import org.w3c.css.sac.InputSource
-import org.w3c.dom.css.CSSRuleList
 import spock.lang.Ignore
 
-class CompileSpec extends IntegrationSpec {
+class CompileSpec extends CompassPluginSpec {
 
   final COMPILE_TASK_NAME = "compassCompile"
-
-  protected static String localRepoLocation() {
-    System.properties."localRepo.location"
-  }
 
   def setup() {
     buildFile << """
@@ -62,11 +53,8 @@ class CompileSpec extends IntegrationSpec {
     run COMPILE_TASK_NAME
 
     then:
-    with("build/stylesheets/basic.css") { path ->
-      fileExists path
-      with(stylesheet(path)) {
-        item(0).cssText == "body { font-family: Georgia, serif }"
-      }
+    with(stylesheet("build/stylesheets/basic.css")) {
+      item(0).cssText == "body { font-family: Georgia, serif }"
     }
   }
 
@@ -87,12 +75,5 @@ class CompileSpec extends IntegrationSpec {
     upToDate ":$COMPILE_TASK_NAME"
   }
 
-  def parser = new CSSOMParser(new SACParserCSS3())
-
-  private CSSRuleList stylesheet(String path) {
-    file(path).withReader { r ->
-      parser.parseStyleSheet(new InputSource(r), null, null).cssRules
-    }
-  }
 
 }

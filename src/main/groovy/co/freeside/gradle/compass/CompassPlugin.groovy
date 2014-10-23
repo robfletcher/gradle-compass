@@ -9,6 +9,9 @@ class CompassPlugin implements Plugin<Project> {
   private static final String TASK_GROUP_NAME = "compass"
   private static final String CONFIGURATION_NAME = "compass"
 
+  public static final String DEFAULT_SASS_DIR = "src/main/sass"
+  public static final String DEFAULT_CSS_DIR = "build/stylesheets"
+
   @Override
   void apply(Project project) {
     project.apply plugin: "com.github.jruby-gradle.base"
@@ -16,13 +19,23 @@ class CompassPlugin implements Plugin<Project> {
 
     project.task("compassCompile", type: JRubyExec) {
       group TASK_GROUP_NAME
-      description "Compile compass stylesheets"
-      inputs.dir "src/main/sass"
-      outputs.dir "build/stylesheets"
+      description "Compile Sass stylesheets to CSS"
+      inputs.dir DEFAULT_SASS_DIR
+      outputs.dir DEFAULT_CSS_DIR
       jrubyArgs "-S"
       script "compass"
-      scriptArgs "compile", "--sass-dir", "src/main/sass", "--css-dir", "build/stylesheets"
+      scriptArgs "compile", "--sass-dir", DEFAULT_SASS_DIR, "--css-dir", DEFAULT_CSS_DIR
       configuration CONFIGURATION_NAME
+    }
+
+    project.task("compassWatch", type: JRubyExec) {
+      group TASK_GROUP_NAME
+      description "Compile Sass stylesheets to CSS when they change"
+    }
+
+    project.task("compassClean", type: JRubyExec) {
+      group TASK_GROUP_NAME
+      description "Remove generated files and the sass cache"
     }
   }
 }
