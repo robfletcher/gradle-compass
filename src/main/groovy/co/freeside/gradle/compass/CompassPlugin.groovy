@@ -1,12 +1,13 @@
 package co.freeside.gradle.compass
 
+import com.github.jrubygradle.JRubyExec
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 
 class CompassPlugin implements Plugin<Project> {
 
-  private static final String TASK_GROUP_NAME = "compass"
-  private static final String CONFIGURATION_NAME = "compass"
+  public static final String TASK_GROUP_NAME = "compass"
+  public static final String CONFIGURATION_NAME = "compass"
 
   @Override
   void apply(Project project) {
@@ -38,10 +39,13 @@ class CompassPlugin implements Plugin<Project> {
       command "clean"
     }
 
-    project.task("compassVersion", type: CompassTask) {
+    project.task("compassVersion", type: JRubyExec) {
       group TASK_GROUP_NAME
       description "Print out version information"
-      command "version"
+      jrubyArgs "-S"
+      script "compass"
+      scriptArgs "version"
+      configuration CONFIGURATION_NAME
     }
 
     project.task("compassConfig", type: CompassTask) {
@@ -57,6 +61,11 @@ class CompassPlugin implements Plugin<Project> {
         cssDir = { extension.cssDir }
         sassDir = { extension.sassDir }
       }
+    }
+
+    project.afterEvaluate {
+      extension.sassDir.mkdirs()
+      extension.cssDir.mkdirs()
     }
   }
 }

@@ -14,9 +14,6 @@ class CompassTask extends JRubyExec {
     jrubyArgs "-S"
     script = new File("compass")
     configuration = "compass"
-//
-//    sassDir = project.compass.getSassDir()
-//    cssDir = project.compass.getCssDir()
   }
 
   @Override
