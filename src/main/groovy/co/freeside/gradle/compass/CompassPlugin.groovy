@@ -1,6 +1,5 @@
 package co.freeside.gradle.compass
 
-import com.github.jrubygradle.JRubyExec
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 
@@ -21,42 +20,43 @@ class CompassPlugin implements Plugin<Project> {
       }
     }
 
-    project.extensions.create("compass", CompassExtension, project)
-
-    project.task("compassCompile", type: JRubyExec) {
-      println "compiling from ${project.compass.getSassDir()}"
+    project.task("compassCompile", type: CompassTask) {
       group TASK_GROUP_NAME
       description "Compile Sass stylesheets to CSS"
-      inputs.dir project.compass.getSassDir()
-      outputs.dir project.compass.getCssDir()
-      jrubyArgs "-S"
-      script "compass"
-      scriptArgs "compile", "--sass-dir", project.compass.getSassDir(), "--css-dir", project.compass.getCssDir()
-      configuration CONFIGURATION_NAME
+      command "compile"
     }
 
-    project.task("compassWatch", type: JRubyExec) {
+    project.task("compassWatch", type: CompassTask) {
       group TASK_GROUP_NAME
       description "Compile Sass stylesheets to CSS when they change"
+      command "watch"
     }
 
-    project.task("compassClean", type: JRubyExec) {
+    project.task("compassClean", type: CompassTask) {
       group TASK_GROUP_NAME
       description "Remove generated files and the sass cache"
-      outputs.dir project.compass.getCssDir()
-      jrubyArgs "-S"
-      script "compass"
-      scriptArgs "clean", "--sass-dir", project.compass.getSassDir(), "--css-dir", project.compass.getCssDir()
-      configuration CONFIGURATION_NAME
+      command "clean"
     }
 
-    project.task("compassVersion", type: JRubyExec) {
+    project.task("compassVersion", type: CompassTask) {
       group TASK_GROUP_NAME
       description "Print out version information"
-      jrubyArgs "-S"
-      script "compass"
-      scriptArgs "version"
-      configuration CONFIGURATION_NAME
+      command "version"
+    }
+
+    project.task("compassConfig", type: CompassTask) {
+      group TASK_GROUP_NAME
+      description "Generate a configuration file"
+      command "config"
+    }
+
+    def extension = project.extensions.create("compass", CompassExtension, project)
+
+    project.tasks.withType(CompassTask) { CompassTask task ->
+      task.conventionMapping.with {
+        cssDir = { extension.cssDir }
+        sassDir = { extension.sassDir }
+      }
     }
   }
 }

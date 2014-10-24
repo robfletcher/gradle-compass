@@ -14,7 +14,6 @@ class CustomDirectoriesSpec extends CompassPluginSpec {
     file("src/sass/main.scss") << '''body { font-family: Georgia, serif; }'''
 
     when:
-    println buildFile.text
     run COMPILE_TASK_NAME
 
     then:

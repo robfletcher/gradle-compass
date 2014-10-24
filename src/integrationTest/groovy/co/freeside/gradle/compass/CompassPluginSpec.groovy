@@ -23,7 +23,7 @@ abstract class CompassPluginSpec extends IntegrationSpec {
           }
         }
         dependencies {
-          classpath "co.freeside:compass-gradle-plugin:1.0.10"
+          classpath "co.freeside:compass-gradle-plugin:+"
         }
         configurations.all {
           resolutionStrategy.cacheDynamicVersionsFor 0, "seconds"
