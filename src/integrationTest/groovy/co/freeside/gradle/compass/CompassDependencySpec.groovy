@@ -1,6 +1,6 @@
 package co.freeside.gradle.compass
 
-class GemDependenciesSpec extends CompassPluginSpec {
+class CompassDependencySpec extends CompassPluginSpec {
 
   def "by default uses latest compass version"() {
     when:

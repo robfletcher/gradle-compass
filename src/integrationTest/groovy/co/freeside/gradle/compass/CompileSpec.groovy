@@ -48,4 +48,44 @@ class CompileSpec extends CompassPluginSpec {
     then:
     upToDate ":$COMPILE_TASK_NAME"
   }
+
+  def "can specify the sass dir"() {
+    given:
+    buildFile << """
+      compass {
+        sassDir = file("src/sass")
+      }
+    """
+
+    and:
+    file("src/sass/main.scss") << '''body { font-family: Georgia, serif; }'''
+
+    when:
+    run COMPILE_TASK_NAME
+
+    then:
+    with(stylesheet("build/stylesheets/main.css")) {
+      item(0).cssText == "body { font-family: Georgia, serif }"
+    }
+  }
+
+  def "can specify the css dir"() {
+    given:
+    buildFile << """
+      compass {
+        cssDir = file("build/css")
+      }
+    """
+
+    and:
+    file("src/main/sass/main.scss") << '''body { font-family: Georgia, serif; }'''
+
+    when:
+    run COMPILE_TASK_NAME
+
+    then:
+    with(stylesheet("build/css/main.css")) {
+      item(0).cssText == "body { font-family: Georgia, serif }"
+    }
+  }
 }
