@@ -32,6 +32,11 @@ class CompassTask extends JRubyExec {
     def scriptArgs = [command]
     scriptArgs << "--sass-dir" << getSassDir().path
     scriptArgs << "--css-dir" << getCssDir().path
+    project.configurations.getByName("compass").dependencies.each {
+      if (it.name != "compass") {
+        scriptArgs << "--require" << it.name
+      }
+    }
     scriptArgs.addAll(super.scriptArgs())
     return scriptArgs
   }
