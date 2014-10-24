@@ -11,7 +11,7 @@ apply plugin: "groovy"
 apply plugin: "nexus"
 
 group = "co.freeside"
-version = "1.0.10"
+version = "2.0"
 archivesBaseName = "compass-gradle-plugin"
 
 repositories {
