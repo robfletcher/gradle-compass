@@ -1,6 +1,6 @@
 package co.freeside.gradle.compass
 
-class AdditionalGemSpec extends CompassPluginSpec {
+class RequireGemSpec extends CompassPluginSpec {
 
   def setup() {
     buildFile << """

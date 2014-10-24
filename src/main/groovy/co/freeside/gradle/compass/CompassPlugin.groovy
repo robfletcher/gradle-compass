@@ -60,6 +60,7 @@ class CompassPlugin implements Plugin<Project> {
       task.conventionMapping.with {
         cssDir = { extension.cssDir }
         sassDir = { extension.sassDir }
+        importPath = { extension.importPath }
       }
     }
 

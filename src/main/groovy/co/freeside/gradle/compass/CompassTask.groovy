@@ -2,7 +2,10 @@ package co.freeside.gradle.compass
 
 import com.github.jrubygradle.JRubyExec
 import com.github.jrubygradle.internal.JRubyExecUtils
+import org.gradle.api.file.FileCollection
 import org.gradle.api.tasks.InputDirectory
+import org.gradle.api.tasks.InputFiles
+import org.gradle.api.tasks.Optional
 import org.gradle.api.tasks.OutputDirectory
 
 import static co.freeside.gradle.compass.CompassPlugin.CONFIGURATION_NAME
@@ -12,6 +15,7 @@ class CompassTask extends JRubyExec {
   String command
   @InputDirectory File sassDir
   @OutputDirectory File cssDir
+  @InputFiles @Optional FileCollection importPath
 
   CompassTask() {
     script = new File("compass")
@@ -32,10 +36,13 @@ class CompassTask extends JRubyExec {
     def scriptArgs = [command]
     scriptArgs << "--sass-dir" << getSassDir().path
     scriptArgs << "--css-dir" << getCssDir().path
-    project.configurations.getByName("compass").dependencies.each {
+    project.configurations.getByName(CONFIGURATION_NAME).dependencies.each {
       if (it.name != "compass") {
         scriptArgs << "--require" << it.name
       }
+    }
+    for (File importDir in getImportPath()?.files) {
+      scriptArgs << "--import-path" << importDir.path
     }
     scriptArgs.addAll(super.scriptArgs())
     return scriptArgs
