@@ -30,6 +30,7 @@ class CompassExtension {
   CompassExtension(Project project) {
     cssDir = project.file("build/stylesheets")
     sassDir = project.file("src/main/sass")
+    imagesDir = project.file("src/main/images")
   }
 
 }

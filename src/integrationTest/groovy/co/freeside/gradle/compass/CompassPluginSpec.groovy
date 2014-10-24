@@ -14,7 +14,7 @@ abstract class CompassPluginSpec extends IntegrationSpec {
   protected final CLEAN_TASK_NAME = "compassClean"
 
   def setup() {
-    buildFile << """
+    buildFile.text = """
       buildscript {
         repositories {
           maven {

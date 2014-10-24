@@ -16,6 +16,7 @@ class CompassTask extends JRubyExec {
   @InputDirectory File sassDir
   @OutputDirectory File cssDir
   @InputFiles @Optional FileCollection importPath
+  @InputDirectory @Optional File imagesDir
 
   CompassTask() {
     script = new File("compass")
@@ -43,6 +44,9 @@ class CompassTask extends JRubyExec {
     }
     for (File importDir in getImportPath()?.files) {
       scriptArgs << "--import-path" << importDir.path
+    }
+    if (getImagesDir()) {
+      scriptArgs << "--images-dir" << getImagesDir().path
     }
     scriptArgs.addAll(super.scriptArgs())
     return scriptArgs

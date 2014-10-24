@@ -61,12 +61,14 @@ class CompassPlugin implements Plugin<Project> {
         cssDir = { extension.cssDir }
         sassDir = { extension.sassDir }
         importPath = { extension.importPath }
+        imagesDir = { extension.imagesDir }
       }
     }
 
     project.afterEvaluate {
-      extension.sassDir.mkdirs()
-      extension.cssDir.mkdirs()
+      [extension.sassDir, extension.cssDir, extension.imagesDir].each {
+        it.mkdirs()
+      }
     }
   }
 }
