@@ -60,8 +60,12 @@ abstract class IntegrationSpec extends Specification {
     task in upToDateTasks
   }
 
-  protected String getStandardErrorOutput() {
-    standardError.toString()
+  protected List<String> getStandardError() {
+    standardError.toString().readLines()
+  }
+
+  protected List<String> getStandartOutput() {
+    standardOutput.toString().readLines()
   }
 
   protected File getBuildFile() {

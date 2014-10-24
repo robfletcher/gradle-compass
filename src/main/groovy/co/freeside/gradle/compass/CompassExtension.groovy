@@ -1,6 +1,7 @@
 package co.freeside.gradle.compass
 
 import groovy.transform.CompileStatic
+import org.gradle.api.Project
 import org.gradle.api.file.FileCollection
 
 @CompileStatic
@@ -25,5 +26,10 @@ class CompassExtension {
   String environment
   String outputStyle
   String projectType
+
+  CompassExtension(Project project) {
+    cssDir = project.file("build/stylesheets")
+    sassDir = project.file("src/main/sass")
+  }
 
 }

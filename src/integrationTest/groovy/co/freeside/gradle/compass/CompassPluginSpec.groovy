@@ -30,10 +30,6 @@ abstract class CompassPluginSpec extends IntegrationSpec {
         }
       }
       apply plugin: "co.freeside.compass"
-
-      dependencies {
-        compass "rubygems:compass:+"
-      }
     """
   }
 

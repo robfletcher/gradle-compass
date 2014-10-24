@@ -12,21 +12,26 @@ class CompassPlugin implements Plugin<Project> {
   @Override
   void apply(Project project) {
     project.apply plugin: "com.github.jruby-gradle.base"
+
     project.configurations.create CONFIGURATION_NAME
-    project.extensions.create("compass", CompassExtension).with {
-      sassDir = project.file("src/main/sass")
-      cssDir = project.file("build/stylesheets")
+    project.afterEvaluate {
+      def configuration = project.configurations.getByName(CONFIGURATION_NAME)
+      if (!configuration.dependencies.any { it.name == "compass" }) {
+        project.dependencies.add(CONFIGURATION_NAME, "rubygems:compass:+")
+      }
     }
 
+    project.extensions.create("compass", CompassExtension, project)
+
     project.task("compassCompile", type: JRubyExec) {
-      println "compiling from $project.compass.sassDir"
+      println "compiling from ${project.compass.getSassDir()}"
       group TASK_GROUP_NAME
       description "Compile Sass stylesheets to CSS"
-      inputs.dir project.compass.sassDir
-      outputs.dir project.compass.cssDir
+      inputs.dir project.compass.getSassDir()
+      outputs.dir project.compass.getCssDir()
       jrubyArgs "-S"
       script "compass"
-      scriptArgs "compile", "--sass-dir", project.compass.sassDir, "--css-dir", project.compass.cssDir
+      scriptArgs "compile", "--sass-dir", project.compass.getSassDir(), "--css-dir", project.compass.getCssDir()
       configuration CONFIGURATION_NAME
     }
 
@@ -38,10 +43,19 @@ class CompassPlugin implements Plugin<Project> {
     project.task("compassClean", type: JRubyExec) {
       group TASK_GROUP_NAME
       description "Remove generated files and the sass cache"
-      outputs.dir project.compass.cssDir
+      outputs.dir project.compass.getCssDir()
       jrubyArgs "-S"
       script "compass"
-      scriptArgs "clean", "--sass-dir", project.compass.sassDir, "--css-dir", project.compass.cssDir
+      scriptArgs "clean", "--sass-dir", project.compass.getSassDir(), "--css-dir", project.compass.getCssDir()
+      configuration CONFIGURATION_NAME
+    }
+
+    project.task("compassVersion", type: JRubyExec) {
+      group TASK_GROUP_NAME
+      description "Print out version information"
+      jrubyArgs "-S"
+      script "compass"
+      scriptArgs "version"
       configuration CONFIGURATION_NAME
     }
   }
