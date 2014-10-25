@@ -158,6 +158,25 @@ class TaskConfigurationSpec extends Specification {
     argument = toArgument(property)
   }
 
+  def "can specify #paths.size() import directories"() {
+    given:
+    project.with {
+      compass {
+        importPath = files(*paths)
+      }
+    }
+
+    expect:
+    def args = task.scriptArgs()
+    def indexes = args.findIndexValues { it == "--import-path" }
+    indexes.collect { i -> args[((int) i) + 1] } == paths.collect { "$project.rootDir/$it" }
+
+    where:
+    paths                       | _
+    ["someDir"]                 | _
+    ["someDir", "someOtherDir"] | _
+  }
+
   private String toArgument(String property) {
     def result = "--" + property.replaceAll(~/[A-Z]/) {
       "-${it.toLowerCase()}"
