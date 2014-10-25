@@ -48,6 +48,29 @@ class ImagesSpec extends CompassPluginSpec {
     }
   }
 
+  def "can use relative paths"() {
+    given:
+    buildFile << '''
+      compass {
+        relativeAssets = true
+      }
+    '''
+
+    and:
+    file("src/images/sacred-chao.png").bytes = testImage.bytes
+    file("src/main/sass/image.scss") << '''
+      .chao { background: image-url('sacred-chao.png', false, false); }
+    '''
+
+    when:
+    run COMPILE_TASK_NAME
+
+    then:
+    with(stylesheet("build/stylesheets/image.css")) {
+      item(0).cssText == "*.chao { background: url(../../src/main/images/sacred-chao.png) }"
+    }
+  }
+
   def "can use image helpers"() {
     given:
     file("src/main/images/sacred-chao.png").bytes = testImage.bytes

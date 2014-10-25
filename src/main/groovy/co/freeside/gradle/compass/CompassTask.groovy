@@ -17,6 +17,7 @@ class CompassTask extends JRubyExec {
   @OutputDirectory File cssDir
   @InputFiles @Optional FileCollection importPath
   @InputDirectory @Optional File imagesDir
+  boolean relativeAssets
 
   CompassTask() {
     script = new File("compass")
@@ -47,6 +48,9 @@ class CompassTask extends JRubyExec {
     }
     if (getImagesDir()) {
       scriptArgs << "--images-dir" << getImagesDir().path
+    }
+    if (isRelativeAssets()) {
+      scriptArgs << "--relative-assets"
     }
     scriptArgs.addAll(super.scriptArgs())
     return scriptArgs
