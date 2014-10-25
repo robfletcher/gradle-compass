@@ -62,13 +62,29 @@ class CompassPlugin implements Plugin<Project> {
         sassDir = { extension.sassDir }
         importPath = { extension.importPath }
         imagesDir = { extension.imagesDir }
+        javascriptsDir = { extension.javascriptsDir }
+        fontsDir = { extension.fontsDir }
+        config = { extension.config }
+        httpPath = { extension.httpPath }
+        generatedImagesPath = { extension.generatedImagesPath }
+        sourcemap = { extension.sourcemap }
+        time = { extension.time }
+        debugInfo = { extension.debugInfo }
+        quiet = { extension.quiet }
+        trace = { extension.trace }
+        force = { extension.force }
+        boring = { extension.boring }
+        outputStyle = { extension.outputStyle }
         relativeAssets = { extension.relativeAssets }
+        noLineComments = { extension.noLineComments }
       }
     }
 
     project.afterEvaluate {
-      [extension.sassDir, extension.cssDir, extension.imagesDir].each {
-        it.mkdirs()
+      [extension.sassDir, extension.cssDir, extension.imagesDir, extension.javascriptsDir, extension.fontsDir].each {
+        if (it) {
+          it.mkdirs()
+        }
       }
     }
   }

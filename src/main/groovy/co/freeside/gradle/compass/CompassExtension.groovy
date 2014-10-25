@@ -12,25 +12,25 @@ class CompassExtension {
   File imagesDir
   File javascriptsDir
   File fontsDir
+  File config
   FileCollection importPath
-
-  boolean relativeAssets
-  boolean boring
+  boolean sourcemap
+  boolean time
   boolean debugInfo
-  boolean dryRun
-  boolean force
-  boolean noLineComments
   boolean quiet
   boolean trace
-
+  boolean force
+  boolean boring
   String environment
   String outputStyle
-  String projectType
+  boolean relativeAssets
+  boolean noLineComments
+  String httpPath
+  String generatedImagesPath
 
   CompassExtension(Project project) {
     cssDir = project.file("build/stylesheets")
     sassDir = project.file("src/main/sass")
-    imagesDir = project.file("src/main/images")
   }
 
 }
