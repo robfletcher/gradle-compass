@@ -29,12 +29,12 @@ class ImagesSpec extends CompassPluginSpec {
     given:
     buildFile << '''
       compass {
-        imagesDir = file("src/images")
+        imagesDir = file("src/main/images")
       }
     '''
 
     and:
-    file("src/images/sacred-chao.png").bytes = testImage.bytes
+    file("src/main/images/sacred-chao.png").bytes = testImage.bytes
     file("src/main/sass/image.scss") << '''
       .chao { background: image-url('sacred-chao.png', false, false); }
     '''
@@ -67,12 +67,19 @@ class ImagesSpec extends CompassPluginSpec {
 
     then:
     with(stylesheet("build/stylesheets/image.css")) {
-      item(0).cssText == "*.chao { background: url(../../src/main/images/sacred-chao.png) }"
+      item(0).cssText == "*.chao { background: url(../../images/sacred-chao.png) }"
     }
   }
 
   def "can use image helpers"() {
     given:
+    buildFile << '''
+      compass {
+        imagesDir = file("src/main/images")
+      }
+    '''
+
+    and:
     file("src/main/images/sacred-chao.png").bytes = testImage.bytes
     file("src/main/sass/image.scss") << '''
       .chao { width: image-width('sacred-chao.png'); }
