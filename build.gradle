@@ -22,8 +22,9 @@ repositories {
 
 dependencies {
   compile gradleApi()
-  compile "org.codehaus.groovy:groovy:2.3.7"
+  compile localGroovy()
   compile "com.github.jruby-gradle:jruby-gradle-plugin:0.1.3"
+  compile "com.google.guava:guava:+"
 
   testCompile("org.spockframework:spock-core:1.0-groovy-2.3-SNAPSHOT") {
     exclude group: "org.codehaus.groovy"
