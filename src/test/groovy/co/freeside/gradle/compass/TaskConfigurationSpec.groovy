@@ -2,12 +2,17 @@ package co.freeside.gradle.compass
 
 import org.gradle.api.Project
 import org.gradle.testfixtures.ProjectBuilder
+import spock.lang.Shared
 import spock.lang.Specification
 import spock.lang.Unroll
+
+import static com.google.common.base.CaseFormat.LOWER_CAMEL
+import static com.google.common.base.CaseFormat.LOWER_HYPHEN
 
 @Unroll
 class TaskConfigurationSpec extends Specification {
 
+  @Shared caseConverter = LOWER_CAMEL.converterTo(LOWER_HYPHEN)
   Project project
   CompassTask task
 
@@ -182,10 +187,6 @@ class TaskConfigurationSpec extends Specification {
   }
 
   private String toArgument(String property) {
-    def result = "--" + property.replaceAll(~/[A-Z]/) {
-      "-${it.toLowerCase()}"
-    }
-    println "$property = $result"
-    result
+    "--${caseConverter.convert(property)}"
   }
 }
