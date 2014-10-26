@@ -110,12 +110,28 @@ class TaskConfigurationSpec extends Specification {
 
     where:
     property              | value
-    "environment"         | "production"
     "httpPath"            | "http"
     "generatedImagesPath" | "generated"
     "outputStyle"         | "compact"
 
     argument = toArgument(property)
+  }
+
+  def "can specify a value for environment"() {
+    given:
+    project.with {
+      compass.environment = "production"
+    }
+
+    expect:
+    task.env == "production"
+
+    and:
+    with(task.scriptArgs()) {
+      def i = indexOf("--environment")
+      i >= 0
+      get(i + 1) == "production"
+    }
   }
 
   def "#property is disabled by default"() {

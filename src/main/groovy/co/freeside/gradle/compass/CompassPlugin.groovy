@@ -58,27 +58,28 @@ class CompassPlugin implements Plugin<Project> {
 
     project.tasks.withType(CompassTask) { CompassTask task ->
       task.conventionMapping.with {
-        cssDir = { extension.cssDir }
-        sassDir = { extension.sassDir }
-        load = { extension.load }
-        loadAll = { extension.loadAll }
-        importPath = { extension.importPath }
-        imagesDir = { extension.imagesDir }
-        javascriptsDir = { extension.javascriptsDir }
-        fontsDir = { extension.fontsDir }
-        config = { extension.config }
-        httpPath = { extension.httpPath }
-        generatedImagesPath = { extension.generatedImagesPath }
         sourcemap = { extension.sourcemap }
         time = { extension.time }
         debugInfo = { extension.debugInfo }
+        load = { extension.load }
+        loadAll = { extension.loadAll }
+        importPath = { extension.importPath }
         quiet = { extension.quiet }
         trace = { extension.trace }
         force = { extension.force }
         boring = { extension.boring }
+        config = { extension.config }
+        sassDir = { extension.sassDir }
+        cssDir = { extension.cssDir }
+        imagesDir = { extension.imagesDir }
+        javascriptsDir = { extension.javascriptsDir }
+        fontsDir = { extension.fontsDir }
+        env = { extension.environment }
         outputStyle = { extension.outputStyle }
         relativeAssets = { extension.relativeAssets }
         noLineComments = { extension.noLineComments }
+        httpPath = { extension.httpPath }
+        generatedImagesPath = { extension.generatedImagesPath }
       }
     }
 

@@ -27,6 +27,7 @@ class CompassTask extends JRubyExec {
   @InputDirectory @Optional File imagesDir
   @InputDirectory @Optional File javascriptsDir
   @InputDirectory @Optional File fontsDir
+  String env
   String outputStyle
   boolean relativeAssets
   boolean noLineComments
@@ -58,27 +59,28 @@ class CompassTask extends JRubyExec {
     }
 
     scriptArgs.addAll new ScriptArgumentsBuilder(this)
-        .bool("--sourcemap")
-        .bool("--time")
-        .bool("--debug-info")
-        .file("--load")
-        .file("--load-all")
-        .files("--import-path")
-        .bool("--quiet")
-        .bool("--trace")
-        .bool("--force")
-        .bool("--boring")
-        .str("--config")
-        .file("--sass-dir")
-        .file("--css-dir")
-        .file("--images-dir")
-        .file("--javascripts-dir")
-        .file("--fonts-dir")
-        .str("--output-style")
-        .bool("--relative-assets")
-        .bool("--no-line-comments")
-        .str("--http-path")
-        .str("--generated-images-path")
+        .add("--sourcemap", isSourcemap())
+        .add("--time", isTime())
+        .add("--debug-info", isDebugInfo())
+        .add("--load", getLoad())
+        .add("--load-all", getLoadAll())
+        .add("--import-path", getImportPath())
+        .add("--quiet", isQuiet())
+        .add("--trace", isTrace())
+        .add("--force", isForce())
+        .add("--boring", isBoring())
+        .add("--config", getConfig())
+        .add("--sass-dir", getSassDir())
+        .add("--css-dir", getCssDir())
+        .add("--images-dir", getImagesDir())
+        .add("--javascripts-dir", getJavascriptsDir())
+        .add("--fonts-dir", getFontsDir())
+        .add("--environment", getEnv())
+        .add("--output-style", getOutputStyle())
+        .add("--relative-assets", isRelativeAssets())
+        .add("--no-line-comments", isNoLineComments())
+        .add("--http-path", getHttpPath())
+        .add("--generated-images-path", getGeneratedImagesPath())
         .toArgumentList()
 
     scriptArgs.addAll(super.scriptArgs())
