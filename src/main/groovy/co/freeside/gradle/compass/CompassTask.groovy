@@ -12,6 +12,8 @@ class CompassTask extends JRubyExec {
   String command
   @InputDirectory File sassDir
   @OutputDirectory File cssDir
+  @InputDirectory @Optional File load
+  @InputDirectory @Optional File loadAll
   @InputFiles @Optional FileCollection importPath
   @InputDirectory @Optional File imagesDir
   @InputDirectory @Optional File javascriptsDir
@@ -53,6 +55,12 @@ class CompassTask extends JRubyExec {
       if (it.name != "compass") {
         scriptArgs << "--require" << it.name
       }
+    }
+    if (getLoad()) {
+      scriptArgs << "--load" << getLoad().path
+    }
+    if (getLoadAll()) {
+      scriptArgs << "--load-all" << getLoadAll().path
     }
     for (File importDir in getImportPath()?.files) {
       scriptArgs << "--import-path" << importDir.path

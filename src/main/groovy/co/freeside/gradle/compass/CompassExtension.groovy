@@ -13,6 +13,8 @@ class CompassExtension {
   File javascriptsDir
   File fontsDir
   File config
+  File load
+  File loadAll
   FileCollection importPath
   boolean sourcemap
   boolean time

@@ -51,6 +51,8 @@ class TaskConfigurationSpec extends Specification {
     "javascriptsDir" | _
     "fontsDir"       | _
     "config"         | _
+    "load"           | _
+    "loadAll"        | _
 
     argument = toArgument(property)
   }
@@ -79,6 +81,8 @@ class TaskConfigurationSpec extends Specification {
     "javascriptsDir" | "src/js"
     "fontsDir"       | "src/fonts"
     "config"         | "src/resources/config.rb"
+    "load"           | "src/frameworks/blueprint"
+    "loadAll"        | "src/frameworks"
 
     argument = toArgument(property)
   }
