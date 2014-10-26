@@ -7,22 +7,22 @@ import org.gradle.api.file.FileCollection
 @CompileStatic
 class CompassExtension {
 
-  File cssDir
-  File sassDir
-  File imagesDir
-  File javascriptsDir
-  File fontsDir
-  File config
-  File load
-  File loadAll
-  FileCollection importPath
   boolean sourcemap
   boolean time
   boolean debugInfo
+  File load
+  File loadAll
+  FileCollection importPath
   boolean quiet
   boolean trace
   boolean force
   boolean boring
+  File config
+  File sassDir
+  File cssDir
+  File imagesDir
+  File javascriptsDir
+  File fontsDir
   String environment
   String outputStyle
   boolean relativeAssets

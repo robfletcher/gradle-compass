@@ -10,22 +10,23 @@ import static co.freeside.gradle.compass.CompassPlugin.CONFIGURATION_NAME
 class CompassTask extends JRubyExec {
 
   String command
-  @InputDirectory File sassDir
-  @OutputDirectory File cssDir
-  @InputDirectory @Optional File load
-  @InputDirectory @Optional File loadAll
-  @InputFiles @Optional FileCollection importPath
-  @InputDirectory @Optional File imagesDir
-  @InputDirectory @Optional File javascriptsDir
-  @InputDirectory @Optional File fontsDir
-  @InputFile @Optional File config
+
   boolean sourcemap
   boolean time
   boolean debugInfo
+  @InputDirectory @Optional File load
+  @InputDirectory @Optional File loadAll
+  @InputFiles @Optional FileCollection importPath
   boolean quiet
   boolean trace
   boolean force
   boolean boring
+  @InputFile @Optional File config
+  @InputDirectory File sassDir
+  @OutputDirectory File cssDir
+  @InputDirectory @Optional File imagesDir
+  @InputDirectory @Optional File javascriptsDir
+  @InputDirectory @Optional File fontsDir
   String outputStyle
   boolean relativeAssets
   boolean noLineComments
@@ -49,8 +50,16 @@ class CompassTask extends JRubyExec {
   @Override
   List<String> scriptArgs() {
     def scriptArgs = [command]
-    scriptArgs << "--sass-dir" << getSassDir().path
-    scriptArgs << "--css-dir" << getCssDir().path
+
+    if (isSourcemap()) {
+      scriptArgs << "--sourcemap"
+    }
+    if (isTime()) {
+      scriptArgs << "--time"
+    }
+    if (isDebugInfo()) {
+      scriptArgs << "--debug-info"
+    }
     project.configurations.getByName(CONFIGURATION_NAME).dependencies.each {
       if (it.name != "compass") {
         scriptArgs << "--require" << it.name
@@ -65,33 +74,6 @@ class CompassTask extends JRubyExec {
     for (File importDir in getImportPath()?.files) {
       scriptArgs << "--import-path" << importDir.path
     }
-    if (getImagesDir()) {
-      scriptArgs << "--images-dir" << getImagesDir().path
-    }
-    if (getJavascriptsDir()) {
-      scriptArgs << "--javascripts-dir" << getJavascriptsDir().path
-    }
-    if (getFontsDir()) {
-      scriptArgs << "--fonts-dir" << getFontsDir().path
-    }
-    if (getConfig()) {
-      scriptArgs << "--config" << getConfig().path
-    }
-    if (getHttpPath()) {
-      scriptArgs << "--http-path" << getHttpPath()
-    }
-    if (getGeneratedImagesPath()) {
-      scriptArgs << "--generated-images-path" << getGeneratedImagesPath()
-    }
-    if (isSourcemap()) {
-      scriptArgs << "--sourcemap"
-    }
-    if (isTime()) {
-      scriptArgs << "--time"
-    }
-    if (isDebugInfo()) {
-      scriptArgs << "--debug-info"
-    }
     if (isQuiet()) {
       scriptArgs << "--quiet"
     }
@@ -104,6 +86,20 @@ class CompassTask extends JRubyExec {
     if (isBoring()) {
       scriptArgs << "--boring"
     }
+    if (getConfig()) {
+      scriptArgs << "--config" << getConfig().path
+    }
+    scriptArgs << "--sass-dir" << getSassDir().path
+    scriptArgs << "--css-dir" << getCssDir().path
+    if (getImagesDir()) {
+      scriptArgs << "--images-dir" << getImagesDir().path
+    }
+    if (getJavascriptsDir()) {
+      scriptArgs << "--javascripts-dir" << getJavascriptsDir().path
+    }
+    if (getFontsDir()) {
+      scriptArgs << "--fonts-dir" << getFontsDir().path
+    }
     if (getOutputStyle()) {
       scriptArgs << "--output-style" << getOutputStyle()
     }
@@ -113,6 +109,13 @@ class CompassTask extends JRubyExec {
     if (isNoLineComments()) {
       scriptArgs << "--no-line-comments"
     }
+    if (getHttpPath()) {
+      scriptArgs << "--http-path" << getHttpPath()
+    }
+    if (getGeneratedImagesPath()) {
+      scriptArgs << "--generated-images-path" << getGeneratedImagesPath()
+    }
+
     scriptArgs.addAll(super.scriptArgs())
     return scriptArgs
   }
