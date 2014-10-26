@@ -1,48 +1,66 @@
 package co.freeside.gradle.compass
 
-import com.google.common.collect.ImmutableList
-import groovy.transform.CompileStatic
+import groovy.transform.TypeChecked
+import org.gradle.api.artifacts.Dependency
+import org.gradle.api.artifacts.DependencySet
 import org.gradle.api.file.FileCollection
 
-@CompileStatic
+@TypeChecked
 class ScriptArgumentsBuilder {
 
   private final CompassTask task
-  private final ImmutableList.Builder<String> arguments = ImmutableList.builder()
+  private final List<String> arguments = []
 
   ScriptArgumentsBuilder(CompassTask task) {
     this.task = task
+    arguments << task.command
   }
 
-  ScriptArgumentsBuilder add(String flag, boolean value) {
+  ScriptArgumentsBuilder addFlag(String flag, boolean value) {
     if (value) {
-      arguments.add(flag)
+      arguments << flag
     }
     return this
   }
 
-  ScriptArgumentsBuilder add(String flag, String value) {
+  ScriptArgumentsBuilder addString(String flag, String value) {
     if (value) {
-      arguments.add(flag).add(value)
+      arguments << flag << value
     }
     return this
   }
 
-  ScriptArgumentsBuilder add(String flag, File value) {
+  ScriptArgumentsBuilder addFile(String flag, File value) {
     if (value) {
-      arguments.add(flag).add(value.path)
+      arguments << flag << value.path
     }
     return this
   }
 
-  ScriptArgumentsBuilder add(String flag, FileCollection value) {
+  ScriptArgumentsBuilder addGem(String flag, Dependency value) {
+    if (value && value.name != "compass") {
+      arguments << flag << value.name
+    }
+    return this
+  }
+
+  ScriptArgumentsBuilder addDirs(String flag, FileCollection value) {
     value?.files?.each {
-      arguments.add(flag).add(it.path)
+      addFile(flag, it)
+    }
+    return this
+  }
+
+  ScriptArgumentsBuilder addGems(String flag, DependencySet dependencies) {
+    dependencies.findAll { Dependency it ->
+      it.name != "compass"
+    } each {
+      addGem(flag, it)
     }
     return this
   }
 
   List<String> toArgumentList() {
-    arguments.build()
+    arguments.asImmutable()
   }
 }

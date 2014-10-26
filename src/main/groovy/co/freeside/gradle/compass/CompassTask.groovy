@@ -50,41 +50,31 @@ class CompassTask extends JRubyExec {
 
   @Override
   List<String> scriptArgs() {
-    def scriptArgs = [command]
-
-    project.configurations.getByName(CONFIGURATION_NAME).dependencies.each {
-      if (it.name != "compass") {
-        scriptArgs << "--require" << it.name
-      }
-    }
-
-    scriptArgs.addAll new ScriptArgumentsBuilder(this)
-        .add("--sourcemap", isSourcemap())
-        .add("--time", isTime())
-        .add("--debug-info", isDebugInfo())
-        .add("--load", getLoad())
-        .add("--load-all", getLoadAll())
-        .add("--import-path", getImportPath())
-        .add("--quiet", isQuiet())
-        .add("--trace", isTrace())
-        .add("--force", isForce())
-        .add("--boring", isBoring())
-        .add("--config", getConfig())
-        .add("--sass-dir", getSassDir())
-        .add("--css-dir", getCssDir())
-        .add("--images-dir", getImagesDir())
-        .add("--javascripts-dir", getJavascriptsDir())
-        .add("--fonts-dir", getFontsDir())
-        .add("--environment", getEnv())
-        .add("--output-style", getOutputStyle())
-        .add("--relative-assets", isRelativeAssets())
-        .add("--no-line-comments", isNoLineComments())
-        .add("--http-path", getHttpPath())
-        .add("--generated-images-path", getGeneratedImagesPath())
-        .toArgumentList()
-
-    scriptArgs.addAll(super.scriptArgs())
-    return scriptArgs
+    new ScriptArgumentsBuilder(this)
+        .addFlag("--sourcemap", isSourcemap())
+        .addFlag("--time", isTime())
+        .addFlag("--debug-info", isDebugInfo())
+        .addGems("--require", project.configurations.getByName(CONFIGURATION_NAME).dependencies)
+        .addFile("--load", getLoad())
+        .addFile("--load-all", getLoadAll())
+        .addDirs("--import-path", getImportPath())
+        .addFlag("--quiet", isQuiet())
+        .addFlag("--trace", isTrace())
+        .addFlag("--force", isForce())
+        .addFlag("--boring", isBoring())
+        .addFile("--config", getConfig())
+        .addFile("--sass-dir", getSassDir())
+        .addFile("--css-dir", getCssDir())
+        .addFile("--images-dir", getImagesDir())
+        .addFile("--javascripts-dir", getJavascriptsDir())
+        .addFile("--fonts-dir", getFontsDir())
+        .addString("--environment", getEnv())
+        .addString("--output-style", getOutputStyle())
+        .addFlag("--relative-assets", isRelativeAssets())
+        .addFlag("--no-line-comments", isNoLineComments())
+        .addString("--http-path", getHttpPath())
+        .addString("--generated-images-path", getGeneratedImagesPath())
+        .toArgumentList() + super.scriptArgs()
   }
 
   @Override
