@@ -3,10 +3,11 @@ buildscript {
     jcenter()
   }
   dependencies {
+    classpath "com.jfrog.bintray.gradle:gradle-bintray-plugin:0.6"
     classpath "org.gradle.api.plugins:gradle-nexus-plugin:0.7.1"
   }
 }
-
+apply plugin: "com.jfrog.bintray"
 apply plugin: "groovy"
 apply plugin: "nexus"
 
@@ -40,7 +41,39 @@ apply from: "gradle/integration-test.gradle"
 install {
   repositories {
     mavenDeployer {
-      repository(url: "file://${buildDir.absolutePath}/localRepo")
+      repository url: "file://${buildDir.absolutePath}/localRepo"
     }
   }
 }
+
+if (!hasProperty("bintrayUsername")) {
+  ext.bintrayUser = ""
+}
+
+if (!hasProperty("bintrayApiKey")) {
+  ext.bintrayKey = ""
+}
+
+bintray {
+  user = project.bintrayUsername
+  key = project.bintrayApiKey
+  publish = true
+  dryRun = false
+  configurations = ["archives"]
+
+  pkg {
+    userOrg = "robfletcher"
+    repo = "gradle-plugins"
+    name = "compass-gradle-plugin"
+    labels = ["compass"]
+
+    version {
+      name = project.version
+      vcsTag = "v${project.version}"
+      attributes = ["gradle-plugin": "com.github.robfletcher.compass:com.github.robfletcher:compass-gradle-plugin"]
+      desc = "Gradle plugin for Sass & Compass compilation"
+
+    }
+  }
+}
+bintrayUpload.dependsOn assemble
