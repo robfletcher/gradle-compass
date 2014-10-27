@@ -1,45 +1,46 @@
-apply plugin: "groovy"
-apply plugin: "maven-publish"
+buildscript {
+  repositories {
+    jcenter()
+  }
+  dependencies {
+    classpath "org.gradle.api.plugins:gradle-nexus-plugin:0.7.1"
+  }
+}
 
-group = "org.gradle.plugins"
-version = "1.0.10"
+apply plugin: "groovy"
+apply plugin: "nexus"
+
+group = "co.freeside"
+version = "2.0"
+archivesBaseName = "compass-gradle-plugin"
 
 repositories {
-  mavenCentral()
+  jcenter()
+  maven { url "https://oss.sonatype.org/content/repositories/releases/" }
+  maven { url "https://oss.sonatype.org/content/repositories/snapshots" }
 }
 
 dependencies {
   compile gradleApi()
   compile localGroovy()
+  compile "com.github.jruby-gradle:jruby-gradle-plugin:0.1.3"
+
+  testCompile("org.spockframework:spock-core:1.0-groovy-2.3-SNAPSHOT") {
+    exclude group: "org.codehaus.groovy"
+  }
+  testCompile "net.sourceforge.cssparser:cssparser:0.9.14"
 }
 
 task sourceJar(type: Jar) {
   from sourceSets.main.allGroovy, sourceSets.main.resources
 }
 
-publishing {
-	publications {
-		mavenJava(MavenPublication) {
-			from components.java
+apply from: "gradle/integration-test.gradle"
 
-			artifact sourceJar {
-				classifier "sources"
-			}
-		}
-	}
-	repositories {
-		maven {
-			url "https://api.bintray.com/maven/robfletcher/gradle-plugins/gradle-compass"
-			credentials {
-				username = bintray_username
-				password = bintray_api_key
-			}
-		}
-	}
+install {
+  repositories {
+    mavenDeployer {
+      repository(url: "file://${buildDir.absolutePath}/localRepo")
+    }
+  }
 }
-
-task wrapper(type: Wrapper) {
-  gradleVersion = "1.9"
-}
-
-apply from: "gradle/integration-tests.gradle"

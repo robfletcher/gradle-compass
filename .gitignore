@@ -1,8 +1,4 @@
-/build/
-/.gradle/
-/gradle.properties
-/.idea/
-/*.ipr
-/*.iml
-/*.iws
-/.gradletasknamecache
+/.gradle
+/build
+*.iml
+/.idea
