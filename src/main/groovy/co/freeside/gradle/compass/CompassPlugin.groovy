@@ -84,6 +84,9 @@ class CompassPlugin implements Plugin<Project> {
     }
 
     project.afterEvaluate {
+      project.tasks.findByName("assemble")?.dependsOn("compassCompile")
+      project.tasks.findByName("clean")?.dependsOn("compassClean")
+
       [extension.sassDir, extension.cssDir, extension.imagesDir, extension.javascriptsDir, extension.fontsDir].each {
         if (it) {
           it.mkdirs()

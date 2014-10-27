@@ -111,16 +111,6 @@ You can use Comass extensions from Ruby gems by adding dependencies to the _comp
       compass "rubygems:breakpoint:2.5.0"
     }
 
-## Using with other tasks
-
-You will typically want to execute the Compass tasks as part of a larger build. For example this configuration will run `compileSass` as part of `processResources`, `watchSass` as part of the [Application plugin][app-plugin]'s `run` task and clean the output of `compileSass` as part of `clean`:
-
-```groovy
-processResources.inputs.files compileSass
-run.dependsOn watchSass
-clean.dependsOn cleanCompileSass
-```
-
 # Version history
 
 ### 2.0

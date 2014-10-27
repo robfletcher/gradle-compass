@@ -7,7 +7,7 @@ class CompassDependencySpec extends CompassPluginSpec {
     run "compassVersion"
 
     then:
-    standartOutput.any {
+    standardOutput.any {
       it == "Compass 1.0.1 (Polaris)"
     }
   }
@@ -24,7 +24,7 @@ class CompassDependencySpec extends CompassPluginSpec {
     run "compassVersion"
 
     then:
-    standartOutput.any {
+    standardOutput.any {
       it == "Compass 0.12.6 (Alnilam)"
     }
 

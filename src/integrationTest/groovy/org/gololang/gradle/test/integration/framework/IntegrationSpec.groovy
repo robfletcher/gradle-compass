@@ -64,7 +64,7 @@ abstract class IntegrationSpec extends Specification {
     standardError.toString().readLines()
   }
 
-  protected List<String> getStandartOutput() {
+  protected List<String> getStandardOutput() {
     standardOutput.toString().readLines()
   }
 
