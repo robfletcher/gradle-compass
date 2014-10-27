@@ -1,4 +1,4 @@
-package co.freeside.gradle.compass
+package com.github.robfletcher.compass
 
 class TaskIntegrationSpec extends CompassPluginSpec {
 

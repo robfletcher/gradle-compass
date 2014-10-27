@@ -1,4 +1,4 @@
-package co.freeside.gradle.compass
+package com.github.robfletcher.compass
 
 import com.github.jrubygradle.JRubyExec
 import org.gradle.api.Plugin

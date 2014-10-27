@@ -1,4 +1,4 @@
-package co.freeside.gradle.compass
+package com.github.robfletcher.compass
 
 import groovy.transform.TypeChecked
 import org.gradle.api.artifacts.Dependency

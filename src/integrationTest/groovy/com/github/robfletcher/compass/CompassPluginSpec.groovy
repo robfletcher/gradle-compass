@@ -1,4 +1,4 @@
-package co.freeside.gradle.compass
+package com.github.robfletcher.compass
 
 import com.steadystate.css.parser.CSSOMParser
 import com.steadystate.css.parser.SACParserCSS3
@@ -23,13 +23,13 @@ abstract class CompassPluginSpec extends IntegrationSpec {
           }
         }
         dependencies {
-          classpath "co.freeside:compass-gradle-plugin:+"
+          classpath "com.github.robfletcher:compass-gradle-plugin:+"
         }
         configurations.all {
           resolutionStrategy.cacheDynamicVersionsFor 0, "seconds"
         }
       }
-      apply plugin: "co.freeside.compass"
+      apply plugin: "com.github.robfletcher.compass"
     """
   }
 

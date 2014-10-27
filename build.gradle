@@ -10,7 +10,7 @@ buildscript {
 apply plugin: "groovy"
 apply plugin: "nexus"
 
-group = "co.freeside"
+group = "com.github.robfletcher"
 version = "2.0"
 archivesBaseName = "compass-gradle-plugin"
 

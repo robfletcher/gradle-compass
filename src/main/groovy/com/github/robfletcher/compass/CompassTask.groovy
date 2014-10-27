@@ -1,11 +1,11 @@
-package co.freeside.gradle.compass
+package com.github.robfletcher.compass
 
 import com.github.jrubygradle.JRubyExec
 import com.github.jrubygradle.internal.JRubyExecUtils
 import org.gradle.api.file.FileCollection
 import org.gradle.api.tasks.*
 
-import static co.freeside.gradle.compass.CompassPlugin.CONFIGURATION_NAME
+import static CompassPlugin.CONFIGURATION_NAME
 
 class CompassTask extends JRubyExec {
 

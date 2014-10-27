@@ -1,4 +1,4 @@
-package co.freeside.gradle.compass
+package com.github.robfletcher.compass
 
 class RequireGemSpec extends CompassPluginSpec {
 

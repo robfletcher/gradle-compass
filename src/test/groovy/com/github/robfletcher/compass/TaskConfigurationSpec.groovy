@@ -1,4 +1,4 @@
-package co.freeside.gradle.compass
+package com.github.robfletcher.compass
 
 import org.gradle.api.Project
 import org.gradle.testfixtures.ProjectBuilder
@@ -19,7 +19,7 @@ class TaskConfigurationSpec extends Specification {
   def setup() {
     project = ProjectBuilder.builder().build()
     project.with {
-      apply plugin: "co.freeside.compass"
+      apply plugin: "com.github.robfletcher.compass"
     }
     task = project.tasks.findByName("compassCompile")
   }
