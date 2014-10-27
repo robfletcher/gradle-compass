@@ -1,22 +1,18 @@
 configurations {
   integrationTestCompile.extendsFrom testCompile
-  integrationTestRuntime.extendsFrom testRuntime
+  integrationTestRuntime.extendsFrom integrationTestCompile, testRuntime
 }
 
 sourceSets {
   integrationTest {
-    compileClasspath += main.output
-    runtimeClasspath += main.output
+    compileClasspath = sourceSets.main.output + configurations.integrationTestCompile
+    runtimeClasspath = output + compileClasspath + configurations.integrationTestRuntime
   }
 }
 
-task integrationTest(type: Test) {
-  dependsOn install
-
+task integrationTest(type: Test, dependsOn: install) {
   testClassesDir = sourceSets.integrationTest.output.classesDir
   classpath = sourceSets.integrationTest.runtimeClasspath
-  testSrcDirs = sourceSets.integrationTest.allJava.srcDirs as List
-
   mustRunAfter test
 
   systemProperty "localRepo.location", "${buildDir.absolutePath}/localRepo"
