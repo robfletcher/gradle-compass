@@ -6,17 +6,25 @@ A [SASS][sass] / [Compass][compass] plugin for [Gradle][gradle]. The plugin uses
 
 The plugin adds the following tasks:
 
-### compileSass
+### compassCompile
 
 Compiles all SASS files. Equivalent to the `compass compile` command. The task supports incremental build.
 
-### watchSass
+### compassWatch
 
-Compiles and watches all SASS files. Equivalent to the `compass watch` command. The task runs in the background so it can be added to the dependency chain for the task that starts your application.
+Compiles and watches all SASS files. Equivalent to the `compass watch` command.
 
-### installCompass
+### compassClean
 
-Installs the Compass Ruby gem and any additional gems you specify. This is executed automatically by the `compileSass` and `watchSass` tasks.
+Deletes generated stylesheets.
+
+### compassVersion
+
+Prints out the compass version.
+
+### compassConfig
+
+Writes compass configuration out to `config/compass.rb`.
 
 ## Installation
 
@@ -31,12 +39,12 @@ buildscript {
 		maven { url 'http://dl.bintray.com/robfletcher/gradle-plugins' }
 	}
 	dependencies {
-		classpath 'org.gradle.plugins:gradle-compass:1.0.7'
+		classpath 'org.gradle.plugins:gradle-compass:2.0'
 	}
 }
 
 repositories {
-	mavenCentral() // or any other repository containing JRuby
+	jcenter() // or any other repository containing JRuby
 }
 ```
 
@@ -46,22 +54,14 @@ General configuration for the plugin goes inside a `compass` block in your build
 
 ```groovy
 compass {
-	cssDir = file('public/styles')
-	sassDir = file('src/main/sass')
+	cssDir = file("public/styles")
+	sassDir = file("src/main/sass")
 }
 ```
 
 ### Configuration parameters
 
 The full set of parameters supported by the plugin is…
-
-#### JRuby options
-
-* `jrubyVersion`: the version of JRuby to install. The current Default is to `1.7.8`.
-* `gemPath`: the directory where the plugin will install Ruby gems. Defaults to `<project dir>/.jruby/gems`.
-* `gems`: the names of the gems to install. The default is `["compass"]`. Optionally, you can specify the version of the gem using the format `gem-name:version`.
-* `encoding`: the file encoding used by JRuby. The default is your platform default encoding.
-* `jvmArgs`: additional arguments to pass to the JVM when running JRuby. The default is blank.
 
 #### Paths
 
@@ -70,24 +70,46 @@ The full set of parameters supported by the plugin is…
 * `imagesDir`: the source directory where you keep image files. Equivalent to `--images-dir`.
 * `javascriptsDir`: the source directory where you keep JavaScript files. You don't need to specify this unless you have Compass extensions in your scripts. Equivalent to `--javascripts-dir`.
 * `fontsDir`: the source directory where you keep fonts. Equivalent to `--fonts-dir`.
-* `importPath`: a set of directories containing other Sass stylesheets. Specifying this allows you to reference those stylesheets in `@import` directives. Equivalent to `--additional_import_paths`.
+* `importPath`: a set of directories containing other Sass stylesheets. Specifying this allows you to reference those stylesheets in `@import` directives. Equivalent to `--import-paths`.
+* `load`: loads a framework or extensions found in the specified directory. Equivalent to `--load`.
+* `loadAll`: loads all frameworks or extensions found in the specified directory. Equivalent to `--load-all`.
 
 #### Compilation options
 
+* `sourcemap`: if *true* Compass will generate a sourcemap during compilation. Equivaluent to `--sourcemap`.
 * `debugInfo`: if *true* (the default) Compass adds debug information to the compiled CSS. Equivalent to `--debug-info` if set to *true* or `--no-debug-info` if set to *false*.
-* `dryRun`: if *true* Compass will just output what it will do without actually doing it. Equivalent to `--dry-run`.
-* `environment`: sets default options when set to *'development'* (the default) or *'production'*. Equivalent to `--environment`.
 * `force`: if *true* Compass will overwrite existing files. Equivalent to `--force`.
+* `environment`: sets default options when set to *'development'* (the default) or *'production'*. Equivalent to `--environment`.
 * `noLineComments`: if *true* Compass will not output line comments to the compiled CSS files. Equivalent to `--no-line-comments`.
 * `outputStyle`: selects the style for compiled CSS. One of *nested*, *expanded*, *compact* (the default) or *compressed*. Eqivalent to `--output-style`.
-* `projectType`: tells Compass what type of app you have. Valid options are *stand_alone* (the default) or *rails*. Equivalent to `--app`.
 * `relativeAssets`: if *true* Compass will generate relative urls to assets. Equivalent to `--relative-assets`.
+* `httpPath`: sets the path to the root of the web application when deployed. Equivalent to `--http-path`.
+* `generatedImagesPath`: sets the path where generated images are stored. Equivalent to `--generated-images-path`.
 
 #### Command line output
 
+* `time`: if *true* Compass will print timing information during compilation. Equivaluent to `--time`.
 * `boring`: if *true* colorized output is disabled. Equivalent to `--boring`.
 * `quiet`: if *true* Compass output is suppressed. Equivalent to `--quiet`.
 * `trace`: if *true* Compass displays full stack traces on error. Equivalent to `--trace`.
+
+### Specifying the Compass version
+
+By default the plugin will use the latest version of Compass available. If you need a specific version you can set the version using Gradle's dependency management. For example:
+
+    dependencies {
+      compass "rubygems:compass:1.0.1"
+    }
+
+Gems are installed using the JRuby Gradle plugin. The Compass plugin creates a special _"compass"_ configuration that is used by all the plugin's tasks.
+
+### Using additional gems
+
+You can use Comass extensions from Ruby gems by adding dependencies to the _compass_ configuration. The plugin will automatically add a `--require` argument for each gem when invoking Compass commands. For example to use the _Breakpoint_ extension:
+
+    dependencies {
+      compass "rubygems:breakpoint:2.5.0"
+    }
 
 ## Using with other tasks
 
@@ -100,6 +122,10 @@ clean.dependsOn cleanCompileSass
 ```
 
 # Version history
+
+### 2.0
+
+* JRuby is handled by the [JRuby Gradle plugin](https://github.com/jruby-gradle/jruby-gradle-plugin).
 
 ### 1.0.10
 
