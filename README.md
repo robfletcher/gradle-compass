@@ -28,29 +28,26 @@ Writes compass configuration out to `config/compass.rb`.
 
 ## Installation
 
-Add the plugin's Bintray repository to your `buildscript` and apply the plugin:
+Add the plugin like this:
 
 ```groovy
-apply plugin: 'compass'
+apply plugin: "com.github.robfletcher.compass"
 
 buildscript {
 	repositories {
 		mavenCentral()
-		maven { url 'http://dl.bintray.com/robfletcher/gradle-plugins' }
+		maven { url "http://dl.bintray.com/robfletcher/gradle-plugins" }
 	}
 	dependencies {
-		classpath 'org.gradle.plugins:gradle-compass:2.0'
+		classpath "org.gradle.plugins:gradle-compass:2.0.1"
+		classpath "com.github.jruby-gradle.base:0.1.3"
 	}
-}
-
-repositories {
-	jcenter() // or any other repository containing JRuby
 }
 ```
 
 ## Configuration
 
-General configuration for the plugin goes inside a `compass` block in your build file and will apply to all tasks. You can also specify configuration properties on the individual tasks (for example you may want to set `environment = "production"` on the *compileSass* and `debugInfo = true` on *watchSass*). As a minimum you must specify the target directory where compiled CSS files should go and the source directories containing SASS/SCSS files. For example:
+General configuration for the plugin goes inside a `compass` block in your build file and will apply to all tasks. You can also specify configuration properties on the individual tasks (for example you may want to set `environment = "production"` on the *compileSass* and `debugInfo = true` on *watchSass*). For example:
 
 ```groovy
 compass {
@@ -65,8 +62,8 @@ The full set of parameters supported by the plugin is…
 
 #### Paths
 
-* `cssDir` **required**: the target directory where compiled CSS is output. Equivalent to `--css-dir`.
-* `sassDir` **required**: the source directory where you keep *.scss* and/or *.sass* files. Equivalent to `--sass-dir`.
+* `cssDir`: the target directory where compiled CSS is output. Equivalent to `--css-dir`. Defaults to `build/stylesheets`.
+* `sassDir`: the source directory where you keep *.scss* and/or *.sass* files. Equivalent to `--sass-dir`. Defaults to `src/main/sass`.
 * `imagesDir`: the source directory where you keep image files. Equivalent to `--images-dir`.
 * `javascriptsDir`: the source directory where you keep JavaScript files. You don't need to specify this unless you have Compass extensions in your scripts. Equivalent to `--javascripts-dir`.
 * `fontsDir`: the source directory where you keep fonts. Equivalent to `--fonts-dir`.
