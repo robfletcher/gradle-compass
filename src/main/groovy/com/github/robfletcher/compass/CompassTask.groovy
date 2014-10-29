@@ -37,6 +37,7 @@ class CompassTask extends JRubyExec {
   CompassTask() {
     script = new File("$project.buildDir/tmp/jrubyExec-compass/bin/compass")
     configuration = CONFIGURATION_NAME
+    defaultCharacterEncoding = "UTF-8"
   }
 
   @Override
