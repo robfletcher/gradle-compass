@@ -102,7 +102,7 @@ Gems are installed using the JRuby Gradle plugin. The Compass plugin creates a s
 
 ### Using additional gems
 
-You can use Comass extensions from Ruby gems by adding dependencies to the _compass_ configuration. The plugin will automatically add a `--require` argument for each gem when invoking Compass commands. For example to use the _Breakpoint_ extension:
+You can use Compass extensions from Ruby gems by adding dependencies to the _compass_ configuration. The plugin will automatically add a `--require` argument for each gem when invoking Compass commands. For example to use the _[Breakpoint][breakpoint]_ extension:
 
     dependencies {
       compass "rubygems:breakpoint:2.5.0"
@@ -146,3 +146,4 @@ You can use Comass extensions from Ruby gems by adding dependencies to the _comp
 [compass]:http://compass-style.org/
 [gradle]:http://gradle.org/
 [sass]:http://sass-lang.com/
+[breakpoint]:http://breakpoint-sass.com/
