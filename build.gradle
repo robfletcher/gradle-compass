@@ -10,10 +10,11 @@ buildscript {
 apply plugin: "com.jfrog.bintray"
 apply plugin: "groovy"
 apply plugin: "nexus"
-apply from: "gradle/integration-test.gradle"
+apply from: "$rootDir/gradle/credentials.gradle"
+apply from: "$rootDir/gradle/integration-test.gradle"
 
 group = "com.github.robfletcher"
-version = "2.0"
+version = "2.0.1-SNAPSHOT"
 archivesBaseName = "compass-gradle-plugin"
 
 repositories {
@@ -43,14 +44,6 @@ install {
       repository url: "file://${buildDir.absolutePath}/localRepo"
     }
   }
-}
-
-if (!hasProperty("bintrayUsername")) {
-  ext.bintrayUser = ""
-}
-
-if (!hasProperty("bintrayApiKey")) {
-  ext.bintrayKey = ""
 }
 
 bintray {

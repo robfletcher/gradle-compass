@@ -43,7 +43,7 @@ class CompassPlugin implements Plugin<Project> {
       group TASK_GROUP_NAME
       description "Print out version information"
       jrubyArgs "-S"
-      script "compass"
+      script "$project.buildDir/tmp/jrubyExec-compass/bin/compass"
       scriptArgs "version"
       configuration CONFIGURATION_NAME
     }

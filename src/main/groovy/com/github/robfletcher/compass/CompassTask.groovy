@@ -35,17 +35,8 @@ class CompassTask extends JRubyExec {
   String generatedImagesPath
 
   CompassTask() {
-    script = new File("compass")
+    script = new File("$project.buildDir/tmp/jrubyExec-compass/bin/compass")
     configuration = CONFIGURATION_NAME
-  }
-
-  @Override
-  List<String> jrubyArgs() {
-    def jrubyArgs = super.jrubyArgs()
-    if (!jrubyArgs.contains("-S")) {
-      jrubyArgs << "-S"
-    }
-    return jrubyArgs
   }
 
   @Override
