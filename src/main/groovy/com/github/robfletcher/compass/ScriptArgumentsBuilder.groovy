@@ -8,11 +8,9 @@ import org.gradle.api.file.FileCollection
 @TypeChecked
 class ScriptArgumentsBuilder {
 
-  private final CompassTask task
   private final List<String> arguments = []
 
   ScriptArgumentsBuilder(CompassTask task) {
-    this.task = task
     arguments << task.command
   }
 
@@ -37,13 +35,6 @@ class ScriptArgumentsBuilder {
     return this
   }
 
-  ScriptArgumentsBuilder addGem(String flag, Dependency value) {
-    if (value && value.name != "compass") {
-      arguments << flag << value.name
-    }
-    return this
-  }
-
   ScriptArgumentsBuilder addDirs(String flag, FileCollection value) {
     value?.files?.each {
       addFile(flag, it)
@@ -55,8 +46,13 @@ class ScriptArgumentsBuilder {
     dependencies.findAll { Dependency it ->
       it.name != "compass"
     } each {
-      addGem(flag, it)
+      arguments << flag << it.name
     }
+    return this
+  }
+
+  ScriptArgumentsBuilder addAll(List<String> args) {
+    arguments.addAll(args)
     return this
   }
 
