@@ -1,5 +1,8 @@
 # Gradle Compass plugin
 
+[![Build Status](https://drone.io/github.com/robfletcher/gradle-compass/status.png)](https://drone.io/github.com/robfletcher/gradle-compass/latest)
+[![Download](https://api.bintray.com/packages/robfletcher/gradle-plugins/compass-gradle-plugin/images/download.svg) ](https://bintray.com/robfletcher/gradle-plugins/compass-gradle-plugin/_latestVersion)
+
 A [SASS][sass] / [Compass][compass] plugin for [Gradle][gradle]. The plugin uses JRuby to install and run Compass.
 
 ## Tasks
