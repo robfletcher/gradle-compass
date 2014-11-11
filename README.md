@@ -20,18 +20,16 @@ Installs the Compass Ruby gem and any additional gems you specify. This is execu
 
 ## Installation
 
-Add the plugin's Bintray repository to your `buildscript` and apply the plugin:
+Add the [JAR](https://github.com/holisticon/gradle-compass/releases/latest) to your nexus and apply the plugin:
+
 
 ```groovy
 apply plugin: 'compass'
 
 buildscript {
-	repositories {
-		mavenCentral()
-		maven { url 'http://dl.bintray.com/robfletcher/gradle-plugins' }
-	}
+	...
 	dependencies {
-		classpath 'org.gradle.plugins:gradle-compass:1.0.7'
+        	classpath 'org.gradle.plugins:gradle-compass:1.0.11'
 	}
 }
 
@@ -46,6 +44,7 @@ General configuration for the plugin goes inside a `compass` block in your build
 
 ```groovy
 compass {
+    	sourcesMirror = 'http://nexus.example.com:8080/content/repositories/rubygems/'
 	cssDir = file('public/styles')
 	sassDir = file('src/main/sass')
 }
@@ -64,7 +63,7 @@ The full set of parameters supported by the plugin is…
 * `jvmArgs`: additional arguments to pass to the JVM when running JRuby. The default is blank.
 
 #### Paths
-
+* `sourcesMirror`: the ruby gem mirror to use 
 * `cssDir` **required**: the target directory where compiled CSS is output. Equivalent to `--css-dir`.
 * `sassDir` **required**: the source directory where you keep *.scss* and/or *.sass* files. Equivalent to `--sass-dir`.
 * `imagesDir`: the source directory where you keep image files. Equivalent to `--images-dir`.
