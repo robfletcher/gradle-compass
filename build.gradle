@@ -19,8 +19,6 @@ archivesBaseName = "compass-gradle-plugin"
 
 repositories {
   jcenter()
-  maven { url "https://oss.sonatype.org/content/repositories/releases/" }
-  maven { url "https://oss.sonatype.org/content/repositories/snapshots" }
 }
 
 dependencies {
@@ -28,7 +26,7 @@ dependencies {
   compile localGroovy()
   compile "com.github.jruby-gradle:jruby-gradle-plugin:0.1.5"
 
-  testCompile("org.spockframework:spock-core:1.0-groovy-2.3-SNAPSHOT") {
+  testCompile("org.spockframework:spock-core:0.7-groovy-2.0") {
     exclude group: "org.codehaus.groovy"
   }
   testCompile "net.sourceforge.cssparser:cssparser:0.9.14"
