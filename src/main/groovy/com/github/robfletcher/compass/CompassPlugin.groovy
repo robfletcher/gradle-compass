@@ -31,6 +31,7 @@ class CompassPlugin implements Plugin<Project> {
       group TASK_GROUP_NAME
       description "Compile Sass stylesheets to CSS when they change"
       command "watch"
+      outputs.upToDateWhen { false }
     }
 
     project.task("compassClean", type: CompassTask) {
