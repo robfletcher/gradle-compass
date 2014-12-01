@@ -24,7 +24,8 @@ repositories {
 dependencies {
   compile gradleApi()
   compile localGroovy()
-  compile "com.github.jruby-gradle:jruby-gradle-plugin:0.1.5"
+  compile "com.github.jruby-gradle:jruby-gradle-plugin:0.1.9"
+  compile "com.github.jengelman.gradle.plugins:gradle-processes:0.3.0"
 
   testCompile("org.spockframework:spock-core:0.7-groovy-2.0") {
     exclude group: "org.codehaus.groovy"
@@ -36,13 +37,13 @@ task sourceJar(type: Jar) {
   from sourceSets.main.allSource
 }
 
-install {
-  repositories {
-    mavenDeployer {
-      repository url: "file://${buildDir.absolutePath}/localRepo"
-    }
-  }
-}
+//install {
+//  repositories {
+//    mavenDeployer {
+//      repository url: "file://${buildDir.absolutePath}/localRepo"
+//    }
+//  }
+//}
 
 bintray {
   user = project.bintrayUsername

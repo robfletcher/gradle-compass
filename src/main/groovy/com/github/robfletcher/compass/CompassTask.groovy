@@ -7,7 +7,7 @@ import org.gradle.api.tasks.*
 
 import static CompassPlugin.CONFIGURATION_NAME
 
-class CompassTask extends JRubyExec {
+class CompassTask extends JRubyExec implements CompassTaskOptions {
 
   String command
 
@@ -51,32 +51,7 @@ class CompassTask extends JRubyExec {
 
   @Override
   List<String> scriptArgs() {
-    new ScriptArgumentsBuilder(this)
-      .addFlag("--sourcemap", isSourcemap())
-      .addFlag("--time", isTime())
-      .addFlag("--debug-info", isDebugInfo())
-      .addGems("--require", project.configurations.getByName(CONFIGURATION_NAME).dependencies)
-      .addFile("--load", getLoad())
-      .addFile("--load-all", getLoadAll())
-      .addDirs("--import-path", getImportPath())
-      .addFlag("--quiet", isQuiet())
-      .addFlag("--trace", isTrace())
-      .addFlag("--force", isForce())
-      .addFlag("--boring", isBoring())
-      .addFile("--config", getConfig())
-      .addFile("--sass-dir", getSassDir())
-      .addFile("--css-dir", getCssDir())
-      .addFile("--images-dir", getImagesDir())
-      .addFile("--javascripts-dir", getJavascriptsDir())
-      .addFile("--fonts-dir", getFontsDir())
-      .addString("--environment", getEnv())
-      .addString("--output-style", getOutputStyle())
-      .addFlag("--relative-assets", isRelativeAssets())
-      .addFlag("--no-line-comments", isNoLineComments())
-      .addString("--http-path", getHttpPath())
-      .addString("--generated-images-path", getGeneratedImagesPath())
-      .addAll(super.scriptArgs())
-      .toArgumentList()
+    ScriptArgumentsBuilder.compassArgs(this)
   }
 
   @Override

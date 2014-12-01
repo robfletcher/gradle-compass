@@ -12,6 +12,7 @@ class CompassPlugin implements Plugin<Project> {
   @Override
   void apply(Project project) {
     project.apply plugin: "com.github.jruby-gradle.base"
+    project.apply plugin: "com.github.johnrengelman.processes"
 
     project.configurations.create CONFIGURATION_NAME
     project.afterEvaluate {
@@ -27,11 +28,19 @@ class CompassPlugin implements Plugin<Project> {
       command "compile"
     }
 
-    project.task("compassWatch", type: CompassTask) {
-      group TASK_GROUP_NAME
-      description "Compile Sass stylesheets to CSS when they change"
+    project.task("compassStartWatch", type: CompassFork) {
       command "watch"
       outputs.upToDateWhen { false }
+    }
+
+    project.task("compassStopWatch").doLast {
+      project.tasks.findByName("compassStartWatch").processHandle.abort()
+    }
+
+    project.task("compassWatch", dependsOn: "compassStartWatch").doLast {
+      group TASK_GROUP_NAME
+      description "Compile Sass stylesheets to CSS when they change"
+      project.tasks.findByName("compassStartWatch").processHandle.waitForFinish()
     }
 
     project.task("compassClean", type: CompassTask) {
@@ -57,7 +66,7 @@ class CompassPlugin implements Plugin<Project> {
 
     def extension = project.extensions.create("compass", CompassExtension, project)
 
-    project.tasks.withType(CompassTask) { CompassTask task ->
+    project.tasks.withType(CompassTaskOptions) { CompassTaskOptions task ->
       task.conventionMapping.with {
         sourcemap = { extension.sourcemap }
         time = { extension.time }
