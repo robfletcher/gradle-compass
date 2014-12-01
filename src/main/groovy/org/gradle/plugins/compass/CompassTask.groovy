@@ -111,6 +111,13 @@ class CompassTask extends JRubyTask {
         }
       } else {
       jrubyexec(getJRubyArguments())
+
+          if (getSourcesMirror()){
+              logger.info('Remove source mirror.')
+              def args = []
+              args << '-S' << 'gem' << 'sources' << '--remove' << getSourcesMirror()
+              jrubyexec(args)
+          }
     }
   }
 }
