@@ -43,8 +43,9 @@ buildscript {
     maven { url "http://dl.bintray.com/robfletcher/gradle-plugins" }
   }
   dependencies {
-    classpath "org.gradle.plugins:gradle-compass:2.0.1"
-    classpath "com.github.jruby-gradle.base:0.1.3"
+    classpath "com.github.robfletcher:compass-gradle-plugin:2.0.2"
+    classpath "com.github.jruby-gradle.base:0.1.9"
+    classpath "com.github.jengelman.gradle.plugins:gradle-processes:0.3.0"
   }
 }
 ----
