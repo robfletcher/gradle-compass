@@ -68,3 +68,5 @@ bintray {
   }
 }
 bintrayUpload.dependsOn assemble
+
+defaultTasks "build"
