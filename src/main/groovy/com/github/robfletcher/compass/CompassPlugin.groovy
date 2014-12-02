@@ -28,19 +28,19 @@ class CompassPlugin implements Plugin<Project> {
       command "compile"
     }
 
-    project.task("compassStartWatch", type: CompassFork) {
+    project.task("compassWatchStart", type: CompassFork) {
       command "watch"
       outputs.upToDateWhen { false }
     }
 
-    project.task("compassStopWatch").doLast {
-      project.tasks.findByName("compassStartWatch").processHandle.abort()
+    project.task("compassWatchStop").doLast {
+      project.tasks.findByName("compassWatchStart").processHandle.abort()
     }
 
-    project.task("compassWatch", dependsOn: "compassStartWatch").doLast {
+    project.task("compassWatch", dependsOn: "compassWatchStart").doLast {
       group TASK_GROUP_NAME
       description "Compile Sass stylesheets to CSS when they change"
-      project.tasks.findByName("compassStartWatch").processHandle.waitForFinish()
+      project.tasks.findByName("compassWatchStart").processHandle.waitForFinish()
     }
 
     project.task("compassClean", type: CompassTask) {
