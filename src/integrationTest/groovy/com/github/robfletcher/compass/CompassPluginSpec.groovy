@@ -12,6 +12,7 @@ abstract class CompassPluginSpec extends IntegrationSpec {
   @Shared parser = new CSSOMParser(new SACParserCSS3())
   protected final COMPILE_TASK_NAME = "compassCompile"
   protected final CLEAN_TASK_NAME = "compassClean"
+  protected final WATCH_TASK_NAME = "compassWatch"
 
   def setup() {
     buildFile.text = """
@@ -38,8 +39,12 @@ abstract class CompassPluginSpec extends IntegrationSpec {
   }
 
   protected CSSRuleList stylesheet(String path) {
-    assert fileExists(path), "file $path does not exist"
-    file(path).withReader { r ->
+    stylesheet file(path)
+  }
+
+  protected CSSRuleList stylesheet(File file) {
+    assert file, "file $file.path does not exist"
+    file.withReader { r ->
       parser.parseStyleSheet(new InputSource(r), null, null).cssRules
     }
   }
