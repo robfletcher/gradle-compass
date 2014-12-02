@@ -38,12 +38,13 @@ apply plugin: "com.github.robfletcher.compass"
 
 buildscript {
 	repositories {
+		jcenter()
 		mavenCentral()
 		maven { url "http://dl.bintray.com/robfletcher/gradle-plugins" }
 	}
 	dependencies {
-		classpath "org.gradle.plugins:gradle-compass:2.0.1"
-		classpath "com.github.jruby-gradle.base:0.1.3"
+		classpath "com.github.robfletcher:compass-gradle-plugin:2.0.1"
+		classpath "com.github.jruby-gradle:jruby-gradle-plugin:0.1.3"
 	}
 }
 ```
