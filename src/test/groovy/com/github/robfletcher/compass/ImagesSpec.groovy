@@ -14,7 +14,7 @@ class ImagesSpec extends CompassPluginSpec {
     '''
 
     when:
-    run COMPILE_TASK_NAME
+    runTasks COMPILE_TASK_NAME
 
     then:
     with(stylesheet("build/stylesheets/image.css")) {
@@ -40,7 +40,7 @@ class ImagesSpec extends CompassPluginSpec {
     '''
 
     when:
-    run COMPILE_TASK_NAME
+    runTasks COMPILE_TASK_NAME
 
     then:
     with(stylesheet("build/stylesheets/image.css")) {
@@ -63,7 +63,7 @@ class ImagesSpec extends CompassPluginSpec {
     '''
 
     when:
-    run COMPILE_TASK_NAME
+    runTasks COMPILE_TASK_NAME
 
     then:
     with(stylesheet("build/stylesheets/image.css")) {
@@ -86,7 +86,7 @@ class ImagesSpec extends CompassPluginSpec {
     '''
 
     when:
-    run COMPILE_TASK_NAME
+    runTasks COMPILE_TASK_NAME
 
     then:
     with(stylesheet("build/stylesheets/image.css")) {

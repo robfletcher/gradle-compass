@@ -15,7 +15,7 @@ class WatchSpec extends CompassPluginSpec {
       body { font-family: $font; }
     '''
 
-    targetFile = new File(dir.root, "build/stylesheets/styles.css")
+    targetFile = new File(projectDir, "build/stylesheets/styles.css")
   }
 
   def "compiles stylesheets on start"() {
@@ -35,6 +35,7 @@ class WatchSpec extends CompassPluginSpec {
     waitUntilFileExists targetFile
 
     when: "the stylesheet is changed"
+    sleep 1000
     srcFile.write '''
       $font: Optima, serif;
       body { font-family: $font; }
@@ -55,6 +56,7 @@ class WatchSpec extends CompassPluginSpec {
     waitUntilFileExists targetFile
 
     when: "a new stylesheet is created"
+    sleep 1000
     def newFile = file("src/main/sass/new.scss")
     newFile << '''
       $size: 16px;
@@ -62,27 +64,18 @@ class WatchSpec extends CompassPluginSpec {
     '''
 
     then: "the new stylesheet is compiled"
-    waitUntilFileExists new File(dir.root, "build/stylesheets/new.css")
+    waitUntilFileExists new File(projectDir, "build/stylesheets/new.css")
   }
 
   private void startWatching() {
-    runInBackground WATCH_TASK_NAME
-    conditions.eventually {
-      assert standardOutput.any {
-        it.contains "Compass is watching for changes."
-      }
+    Thread.start {
+      runTasks WATCH_TASK_NAME
     }
   }
 
   private void waitUntilFileExists(File file) {
     conditions.eventually {
       assert file.exists()
-    }
-  }
-
-  protected void runInBackground(String... tasks) {
-    Thread.start {
-      run(tasks)
     }
   }
 }

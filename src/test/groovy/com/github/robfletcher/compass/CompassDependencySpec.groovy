@@ -4,12 +4,10 @@ class CompassDependencySpec extends CompassPluginSpec {
 
   def "by default uses latest compass version"() {
     when:
-    run "compassVersion"
+    runTasks "compassVersion"
 
     then:
-    standardOutput.any {
-      it == "Compass 1.0.1 (Polaris)"
-    }
+    standardOutput.readLines().contains "Compass 1.0.1 (Polaris)"
   }
 
   def "can specify compass version"() {
@@ -21,12 +19,10 @@ class CompassDependencySpec extends CompassPluginSpec {
     """
 
     when:
-    run "compassVersion"
+    runTasks "compassVersion"
 
     then:
-    standardOutput.any {
-      it == "Compass 0.12.6 (Alnilam)"
-    }
+    standardOutput.readLines().contains "Compass 0.12.6 (Alnilam)"
 
     where:
     version = "0.12.6"
