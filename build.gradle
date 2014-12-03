@@ -35,6 +35,10 @@ dependencies {
   testCompile "net.sourceforge.cssparser:cssparser:0.9.14"
 }
 
+test {
+  systemProperties."compass.gem.dir" = file("${buildDir}/tmp/gems").canonicalPath
+}
+
 task sourceJar(type: Jar) {
   from sourceSets.main.allSource
 }

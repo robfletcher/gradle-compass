@@ -18,6 +18,15 @@ abstract class CompassPluginSpec extends IntegrationSpec {
     fork = true // don't get stdout from the compass process without this
 
     buildFile.text = applyPlugin(CompassPlugin)
+
+    def gemDir = System.properties."compass.gem.dir"
+    if (gemDir) {
+      buildFile << """
+        compass {
+          gemDir = file("$gemDir")
+        }
+      """
+    }
   }
 
   protected CSSRuleList stylesheet(String path) {

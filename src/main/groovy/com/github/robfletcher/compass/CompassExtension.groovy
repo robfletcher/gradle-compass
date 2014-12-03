@@ -29,10 +29,12 @@ class CompassExtension {
   boolean noLineComments
   String httpPath
   String generatedImagesPath
+  File gemDir
 
   CompassExtension(Project project) {
     cssDir = project.file("build/stylesheets")
     sassDir = project.file("src/main/sass")
+    gemDir = project.file("build/tmp/gems")
   }
 
 }

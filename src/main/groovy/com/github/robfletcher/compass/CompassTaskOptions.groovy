@@ -97,4 +97,8 @@ interface CompassTaskOptions extends Task, IConventionAware {
   String getGeneratedImagesPath()
 
   void setGeneratedImagesPath(String generatedImagesPath)
+
+  File getGemDir()
+
+  void setGemDir(File gemDir)
 }

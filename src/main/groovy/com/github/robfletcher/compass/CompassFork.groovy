@@ -32,17 +32,10 @@ class CompassFork extends JavaFork implements CompassTaskOptions {
   boolean noLineComments
   String httpPath
   String generatedImagesPath
-
-  Object gemWorkDir
-
-  @Optional
-  @OutputDirectory
-  File getGemWorkDir() {
-    gemWorkDir ? project.file(gemWorkDir) : project.file("build/tmp/jrubyExec-compass")
-  }
+  File gemDir
 
   @TaskAction @Override void javafork() {
-    def gemDir = getGemWorkDir()
+    def gemDir = getGemDir()
 
     gemDir.mkdirs()
     GemUtils.extractGems(

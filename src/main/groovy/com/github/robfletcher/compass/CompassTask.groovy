@@ -33,11 +33,17 @@ class CompassTask extends JRubyExec implements CompassTaskOptions {
   boolean noLineComments
   String httpPath
   String generatedImagesPath
+  File gemDir
 
   CompassTask() {
     script = new File("compass")
     configuration = CONFIGURATION_NAME
     defaultCharacterEncoding = "UTF-8"
+  }
+
+  @Override
+  File getGemWorkDir() {
+    getGemDir()
   }
 
   @Override

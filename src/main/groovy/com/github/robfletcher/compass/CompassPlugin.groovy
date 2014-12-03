@@ -90,6 +90,7 @@ class CompassPlugin implements Plugin<Project> {
         noLineComments = { extension.noLineComments }
         httpPath = { extension.httpPath }
         generatedImagesPath = { extension.generatedImagesPath }
+        gemDir = { extension.gemDir }
       }
     }
 

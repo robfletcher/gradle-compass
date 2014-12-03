@@ -94,6 +94,10 @@ The full set of parameters supported by the plugin is…
 * `quiet`: if *true* Compass output is suppressed. Equivalent to `--quiet`.
 * `trace`: if *true* Compass displays full stack traces on error. Equivalent to `--trace`.
 
+==== Dependency options
+
+* `gemDir`: the directory where the Compass gem (and any other gems you specify) will be installed. Defaults to `build/tmp/gems`. You may want to override this to use a shared location in multi-project builds so that gems only get downloaded once.
+
 === Specifying the Compass version
 
 By default the plugin will use the latest version of Compass available. If you need a specific version you can set the version using Gradle's dependency management. For example:
@@ -131,6 +135,10 @@ run.finalizedBy compassWatchStop
 ----
 
 = Version history
+
+=== 2.0.4
+
+* Allow setting of directory where compass gems get installed (mainly this helps the integration tests run in a sane amount of time but it's also useful for multi-project builds).
 
 === 2.0.3
 
