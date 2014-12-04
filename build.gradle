@@ -13,7 +13,7 @@ apply plugin: "nexus"
 apply from: "$rootDir/gradle/credentials.gradle"
 
 group = "com.github.robfletcher"
-version = "2.0.4-SNAPSHOT"
+version = "2.0.4"
 archivesBaseName = "compass-gradle-plugin"
 
 repositories {
