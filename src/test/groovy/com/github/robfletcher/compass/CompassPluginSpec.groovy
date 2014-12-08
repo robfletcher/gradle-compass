@@ -11,7 +11,7 @@ abstract class CompassPluginSpec extends IntegrationSpec {
 
   @Shared parser = new CSSOMParser(new SACParserCSS3())
   protected final COMPILE_TASK_NAME = "compassCompile"
-  protected final CLEAN_TASK_NAME = "compassClean"
+  protected final CLEAN_TASK_NAME = "cleanCompassCompile"
   protected final WATCH_TASK_NAME = "compassWatch"
 
   def setup() {

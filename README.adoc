@@ -17,10 +17,6 @@ Compiles all SASS files. Equivalent to the `compass compile` command. The task s
 
 Compiles and watches all SASS files. Equivalent to the `compass watch` command.
 
-=== compassClean
-
-Deletes generated stylesheets.
-
 === compassVersion
 
 Prints out the compass version.
@@ -111,6 +107,10 @@ dependencies {
 
 Gems are installed using the JRuby Gradle plugin. The Compass plugin creates a special _"compass"_ configuration that is used by all the plugin's tasks.
 
+=== Cleaning output
+
+The Compass plugin creates a `cleanCompassCompile` task automatically that will delete compiles CSS. The main `clean` task will also delete CSS assuming `cssDir` is inside the project's `build` directory.
+
 === Using additional gems
 
 You can use Compass extensions from Ruby gems by adding dependencies to the _compass_ configuration. The plugin will automatically add a `--require` argument for each gem when invoking Compass commands. For example to use the _[Breakpoint][breakpoint]_ extension:
@@ -135,6 +135,10 @@ run.finalizedBy compassWatchStop
 ----
 
 = Version history
+
+=== 2.0.5
+
+* No custom `compassClean` task – instead apply the _base_ plugin so we get cleanup by convention.
 
 === 2.0.4
 

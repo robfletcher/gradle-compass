@@ -3,6 +3,7 @@ package com.github.robfletcher.compass
 import com.github.jrubygradle.JRubyExec
 import org.gradle.api.Plugin
 import org.gradle.api.Project
+import org.gradle.api.plugins.BasePlugin
 
 class CompassPlugin implements Plugin<Project> {
 
@@ -11,6 +12,7 @@ class CompassPlugin implements Plugin<Project> {
 
   @Override
   void apply(Project project) {
+    project.apply plugin: BasePlugin
     project.apply plugin: "com.github.jruby-gradle.base"
     project.apply plugin: "com.github.johnrengelman.processes"
 
@@ -41,12 +43,6 @@ class CompassPlugin implements Plugin<Project> {
       group TASK_GROUP_NAME
       description "Compile Sass stylesheets to CSS when they change"
       project.tasks.findByName("compassWatchStart").processHandle.waitForFinish()
-    }
-
-    project.task("compassClean", type: CompassTask) {
-      group TASK_GROUP_NAME
-      description "Remove generated files and the sass cache"
-      command "clean"
     }
 
     project.task("compassVersion", type: JRubyExec) {
@@ -95,8 +91,7 @@ class CompassPlugin implements Plugin<Project> {
     }
 
     project.afterEvaluate {
-      project.tasks.findByName("assemble")?.dependsOn("compassCompile")
-      project.tasks.findByName("clean")?.dependsOn("compassClean")
+      project.tasks.findByName("assemble").dependsOn("compassCompile")
 
       [extension.sassDir, extension.cssDir, extension.imagesDir, extension.javascriptsDir, extension.fontsDir].each {
         if (it) {

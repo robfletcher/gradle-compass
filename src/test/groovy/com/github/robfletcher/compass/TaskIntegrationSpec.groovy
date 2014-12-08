@@ -20,13 +20,4 @@ class TaskIntegrationSpec extends CompassPluginSpec {
     then:
     wasExecuted ":compassCompile"
   }
-
-  def "compassClean is run as part of the clean task"() {
-    when:
-    runTasks "clean"
-
-    then:
-    wasExecuted ":compassClean"
-  }
-
 }
