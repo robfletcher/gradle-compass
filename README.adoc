@@ -1,7 +1,8 @@
 = Gradle Compass plugin
 
 image:https://travis-ci.org/robfletcher/gradle-compass.svg?branch=master["Build Status", link="https://travis-ci.org/robfletcher/gradle-compass"]
-image::https://api.bintray.com/packages/robfletcher/gradle-plugins/compass-gradle-plugin/images/download.svg[Download, link=https://bintray.com/robfletcher/gradle-plugins/compass-gradle-plugin/_latestVersion]
+
+image::https://api.bintray.com/packages/robfletcher/gradle-plugins/compass-gradle-plugin/images/download.svg[link="https://bintray.com/robfletcher/gradle-plugins/compass-gradle-plugin/_latestVersion"]
 
 A http://sass-lang.com/[SASS] / http://compass-style.org/[Compass] plugin for http://gradle.org/[Gradle]. The plugin uses JRuby to install and run Compass.
 
