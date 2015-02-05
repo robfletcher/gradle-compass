@@ -1,13 +1,22 @@
 package com.github.robfletcher.compass
 
+import groovy.json.JsonSlurper
+
 class CompassDependencySpec extends CompassPluginSpec {
 
   def "by default uses latest compass version"() {
+    given:
+    def latestVersion = new JsonSlurper()
+      .parseText("https://rubygems.org/api/v1/gems/compass.json".toURL().text)
+      .version
+
     when:
     runTasks "compassVersion"
 
     then:
-    standardOutput.readLines().contains "Compass 1.0.1 (Polaris)"
+    standardOutput.readLines().any {
+      it =~ /^Compass $latestVersion/
+    }
   }
 
   def "can specify compass version"() {
