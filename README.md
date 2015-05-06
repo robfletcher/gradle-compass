@@ -1,5 +1,7 @@
 # Gradle Compass plugin
 
+[![Build Status](https://travis-ci.org/holisticon/gradle-compass.svg?branch=master)](https://travis-ci.org/holisticon/gradle-compass)
+
 A [SASS][sass] / [Compass][compass] plugin for [Gradle][gradle]. The plugin uses JRuby to install and run Compass.
 
 ## Tasks
