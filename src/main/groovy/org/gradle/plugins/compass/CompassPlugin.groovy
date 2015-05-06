@@ -16,7 +16,9 @@ class CompassPlugin implements Plugin<Project> {
 
     createConfiguration()
 
-    def installCompass = project.task('installCompass', type: DependenciesResolver)
+    def installCompass = project.task('installCompass', type: DependenciesResolver) {
+    	sourcesMirror = sourcesMirror
+    }
 
     def compileSass = project.task('compileSass', type: CompassTask) {
       group "Build"
@@ -33,7 +35,7 @@ class CompassPlugin implements Plugin<Project> {
       outputs.upToDateWhen { false }
     }
 
-    project.task('cleanCompileTask') << {
+    def cleanCompileTask = project.task('cleanCompileTask') << {
       fileTree(dir: extension.cssDir, include: '**/*.css').each {
         delete it
       }
@@ -67,7 +69,7 @@ class CompassPlugin implements Plugin<Project> {
       cssDir = project.file('build/css')
       sassDir = project.file('src/main/sass')
       jvmArgs = ''
-      jrubyVersion = '1.7.10'
+      jrubyVersion = '1.7.20'
 
       def defaultImagesDir = new File('src/main/images')
       if (defaultImagesDir.isDirectory()) {

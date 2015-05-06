@@ -29,7 +29,7 @@ apply plugin: 'compass'
 buildscript {
 	...
 	dependencies {
-        	classpath 'org.gradle.plugins:gradle-compass:1.0.12'
+        	classpath 'org.gradle.plugins:gradle-compass:1.0.15'
 	}
 }
 

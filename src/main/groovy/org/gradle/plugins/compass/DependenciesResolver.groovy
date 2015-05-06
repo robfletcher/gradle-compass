@@ -4,6 +4,8 @@ import org.gradle.api.tasks.*
 
 class DependenciesResolver extends JRubyTask {
 
+  String sourcesMirror
+
   @OutputDirectory
   File gemPath
 
@@ -15,6 +17,12 @@ class DependenciesResolver extends JRubyTask {
 
   @TaskAction
   void install() {
+    if (sourcesMirror){
+      logger.info('Adding source mirror.')
+      def args = []
+      args << '-S' << 'gem' << 'sources' << '--add' << sourcesMirror
+      jrubyexec(args)
+    }
     if (gemJars?.empty) {
         for (gem in getRubyGems()) {
             jrubyexec(getJRubyArguments(gem))

@@ -7,7 +7,8 @@ group = "org.gradle.plugins"
 version = "1.0.15"
 
 repositories {
-    mavenCentral()
+        maven { url 'http://nexus.lhotse.ov.otto.de:8080/content/groups/public' }
+    //mavenCentral()
 }
 
 dependencies {
