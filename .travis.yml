@@ -3,4 +3,5 @@ jdk:
   - openjdk7
   - oraclejdk7
   - oraclejdk8
+install: /bin/true
 script: "./gradlew clean build -Pbintray_username=abc -Pbintray_api_key=42 --info"
