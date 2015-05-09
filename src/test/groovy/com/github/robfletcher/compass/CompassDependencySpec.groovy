@@ -7,7 +7,7 @@ class CompassDependencySpec extends CompassPluginSpec {
     runTasks "compassVersion"
 
     then:
-    standardOutput.readLines().contains "Compass 1.0.1 (Polaris)"
+    standardOutput.readLines().contains "Compass 1.0.3 (Polaris)"
   }
 
   def "can specify compass version"() {
