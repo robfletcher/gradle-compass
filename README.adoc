@@ -36,7 +36,6 @@ apply plugin: "com.github.robfletcher.compass"
 
 buildscript {
   repositories {
-    mavenCentral()
     jcenter()
     maven { url "http://dl.bintray.com/robfletcher/gradle-plugins" }
   }
@@ -158,6 +157,10 @@ compass {
 ----
 
 = Version history
+
+=== 2.0.5
+
+* Fixes JDK version compatibility so plugin can be used with Java 1.7.
 
 === 2.0.5
 
