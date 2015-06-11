@@ -135,6 +135,27 @@ run.dependsOn compassWatchStart
 run.finalizedBy compassWatchStop
 ----
 
+=== Advanced Gem Install Options
+
+You can specify additional options to `gem install`:
+
+[code, lang=groovy]
+----
+compass {
+	gems = [
+		[
+			name: "compass",
+			version: "0.12.7",
+		],
+		[
+			name: "compass-css-arrow",
+			version: "0.0.4",
+			opts: ["--ignore-dependencies"],
+		],
+	]
+}
+----
+
 = Version history
 
 === 2.0.5
