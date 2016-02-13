@@ -5,7 +5,7 @@ class RequireGemSpec extends CompassPluginSpec {
   def setup() {
     buildFile << """
       dependencies {
-        compass "rubygems:modernizr-mixin:+"
+        compass "rubygems:modernizr-mixin:3.0.7"
       }
     """
   }
@@ -26,7 +26,7 @@ class RequireGemSpec extends CompassPluginSpec {
 
     then:
     with(stylesheet("build/stylesheets/extended.css")) {
-      item(0).cssText == "*.rgba body { background-color: rgba(0, 0, 0, 0.2) }"
+      item(0).cssText == ".rgba body { background-color: rgba(0, 0, 0, 0.2) }"
     }
   }
 
