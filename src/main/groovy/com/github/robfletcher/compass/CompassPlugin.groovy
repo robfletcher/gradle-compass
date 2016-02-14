@@ -21,7 +21,7 @@ class CompassPlugin implements Plugin<Project> {
     project.afterEvaluate {
       def configuration = project.configurations.getByName(CONFIGURATION_NAME)
       if (!configuration.dependencies.any { it.name == "compass" }) {
-        project.dependencies.add(CONFIGURATION_NAME, "rubygems:compass:1.0.3")
+        project.dependencies.add(CONFIGURATION_NAME, "rubygems:compass:[0.0,)")
       }
     }
 
