@@ -18,7 +18,7 @@ class ImagesSpec extends CompassPluginSpec {
 
     then:
     with(stylesheet("build/stylesheets/image.css")) {
-      item(0).cssText == "*.chao { background: url(/images/sacred-chao.png) }"
+      item(0).cssText == ".chao { background: url(/images/sacred-chao.png) }"
     }
 
     and:
@@ -44,7 +44,7 @@ class ImagesSpec extends CompassPluginSpec {
 
     then:
     with(stylesheet("build/stylesheets/image.css")) {
-      item(0).cssText == "*.chao { background: url(/images/sacred-chao.png) }"
+      item(0).cssText == ".chao { background: url(/images/sacred-chao.png) }"
     }
   }
 
@@ -67,7 +67,7 @@ class ImagesSpec extends CompassPluginSpec {
 
     then:
     with(stylesheet("build/stylesheets/image.css")) {
-      item(0).cssText == "*.chao { background: url(../../images/sacred-chao.png) }"
+      item(0).cssText == ".chao { background: url(../../images/sacred-chao.png) }"
     }
   }
 
@@ -90,7 +90,7 @@ class ImagesSpec extends CompassPluginSpec {
 
     then:
     with(stylesheet("build/stylesheets/image.css")) {
-      item(0).cssText == "*.chao { width: 40px }"
+      item(0).cssText == ".chao { width: 40px }"
     }
   }
 

@@ -37,7 +37,6 @@ class CompassTask extends JRubyExec implements CompassTaskOptions {
 
   CompassTask() {
     script = new File("compass")
-    configuration = CONFIGURATION_NAME
     defaultCharacterEncoding = "UTF-8"
   }
 
@@ -47,21 +46,8 @@ class CompassTask extends JRubyExec implements CompassTaskOptions {
   }
 
   @Override
-  List<String> jrubyArgs() {
-    def jrubyArgs = super.jrubyArgs()
-    if (!jrubyArgs.contains("-S")) {
-      jrubyArgs << "-S"
-    }
-    return jrubyArgs
-  }
-
-  @Override
-  List<String> scriptArgs() {
-    ScriptArgumentsBuilder.compassArgs(this)
-  }
-
-  @Override
   List<String> getArgs() {
-    JRubyExecUtils.buildArgs(jrubyArgs(), script, scriptArgs())
+    List<String> extra = ['-I', jarDependenciesGemLibPath(getGemWorkDir())]
+    JRubyExecUtils.buildArgs(extra, jrubyArgs, getScript(), ScriptArgumentsBuilder.compassArgs(this))
   }
 }

@@ -74,7 +74,7 @@ class ScriptArgumentsBuilder {
 
   ScriptArgumentsBuilder addGems(String flag, DependencySet dependencies) {
     dependencies.findAll { Dependency it ->
-      it.name != "compass"
+      it.name != "compass" && it.name != 'jruby-complete'
     } each {
       arguments << flag << it.name
     }

@@ -1,6 +1,7 @@
 package com.github.robfletcher.compass
 
 import com.github.jrubygradle.JRubyExec
+import com.github.jrubygradle.JRubyPrepare
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.plugins.BasePlugin
@@ -20,7 +21,7 @@ class CompassPlugin implements Plugin<Project> {
     project.afterEvaluate {
       def configuration = project.configurations.getByName(CONFIGURATION_NAME)
       if (!configuration.dependencies.any { it.name == "compass" }) {
-        project.dependencies.add(CONFIGURATION_NAME, "rubygems:compass:+")
+        project.dependencies.add(CONFIGURATION_NAME, "rubygems:compass:[0.0,)")
       }
     }
 
@@ -59,7 +60,8 @@ class CompassPlugin implements Plugin<Project> {
       description "Generate a configuration file"
       command "config"
     }
-
+    project.task("compassPrepare", type: JRubyPrepare) {
+    }
     def extension = project.extensions.create("compass", CompassExtension, project)
 
     project.tasks.withType(CompassTaskOptions) { CompassTaskOptions task ->
@@ -91,7 +93,11 @@ class CompassPlugin implements Plugin<Project> {
     }
 
     project.afterEvaluate {
-      project.tasks.findByName("assemble").dependsOn("compassCompile")
+      project.compassPrepare.outputDir extension.gemDir
+      project.compassPrepare.dependencies project.configurations.getByName(CONFIGURATION_NAME)
+      project.compassCompile.dependsOn("compassPrepare");
+      project.compassWatch.dependsOn("compassPrepare");
+      project.assemble.dependsOn("compassCompile")
 
       [extension.sassDir, extension.cssDir, extension.imagesDir, extension.javascriptsDir, extension.fontsDir].each {
         if (it) {

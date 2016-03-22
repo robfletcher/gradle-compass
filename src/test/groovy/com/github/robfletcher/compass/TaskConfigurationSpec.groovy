@@ -29,7 +29,7 @@ class TaskConfigurationSpec extends Specification {
     task[property] == project.file(expectedPath)
 
     and:
-    with(task.scriptArgs()) {
+    with(ScriptArgumentsBuilder.compassArgs(task)) {
       def i = indexOf(argument)
       i >= 0
       get(i + 1) == "$project.rootDir/$expectedPath"
@@ -48,7 +48,7 @@ class TaskConfigurationSpec extends Specification {
     task[property] == null
 
     and:
-    !task.scriptArgs().contains(argument)
+    !ScriptArgumentsBuilder.compassArgs(task).contains(argument)
 
     where:
     property         | _
@@ -72,7 +72,7 @@ class TaskConfigurationSpec extends Specification {
     task[property] == project.file(path)
 
     and:
-    with(task.scriptArgs()) {
+    with(ScriptArgumentsBuilder.compassArgs(task)) {
       def i = indexOf(argument)
       i >= 0
       get(i + 1) == "$project.rootDir/$path"
@@ -102,7 +102,7 @@ class TaskConfigurationSpec extends Specification {
     task[property] == value
 
     and:
-    with(task.scriptArgs()) {
+    with(ScriptArgumentsBuilder.compassArgs(task)) {
       def i = indexOf(argument)
       i >= 0
       get(i + 1) == value
@@ -127,7 +127,7 @@ class TaskConfigurationSpec extends Specification {
     task.env == "production"
 
     and:
-    with(task.scriptArgs()) {
+    with(ScriptArgumentsBuilder.compassArgs(task)) {
       def i = indexOf("--environment")
       i >= 0
       get(i + 1) == "production"
@@ -139,7 +139,7 @@ class TaskConfigurationSpec extends Specification {
     task[property] == false
 
     and:
-    !task.scriptArgs().contains(argument)
+    !ScriptArgumentsBuilder.compassArgs(task).contains(argument)
 
     where:
     property         | _
@@ -166,7 +166,7 @@ class TaskConfigurationSpec extends Specification {
     task[property] == true
 
     and:
-    task.scriptArgs().contains(argument)
+    ScriptArgumentsBuilder.compassArgs(task).contains(argument)
 
     where:
     property         | _
@@ -192,7 +192,7 @@ class TaskConfigurationSpec extends Specification {
     }
 
     expect:
-    def args = task.scriptArgs()
+    def args = ScriptArgumentsBuilder.compassArgs(task)
     def indexes = args.findIndexValues { it == "--import-path" }
     indexes.collect { i -> args[((int) i) + 1] } == paths.collect { "$project.rootDir/$it" }
 

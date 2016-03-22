@@ -5,15 +5,17 @@ buildscript {
   dependencies {
     classpath "com.jfrog.bintray.gradle:gradle-bintray-plugin:0.6"
     classpath "org.gradle.api.plugins:gradle-nexus-plugin:0.7.1"
+    classpath "com.github.ben-manes:gradle-versions-plugin:0.12.0"
   }
 }
+apply plugin: 'com.github.ben-manes.versions'
 apply plugin: "com.jfrog.bintray"
 apply plugin: "groovy"
 apply plugin: "nexus"
 apply from: "$rootDir/gradle/credentials.gradle"
 
 group = "com.github.robfletcher"
-version = "2.0.6"
+version = "2.0.7"
 archivesBaseName = "compass-gradle-plugin"
 sourceCompatibility = 1.7
 
@@ -34,16 +36,16 @@ repositories {
 dependencies {
   compile gradleApi()
   compile localGroovy()
-  compile "com.github.jruby-gradle:jruby-gradle-plugin:0.1.9"
+  compile "com.github.jruby-gradle:jruby-gradle-plugin:1.2.0"
   compile "com.github.jengelman.gradle.plugins:gradle-processes:0.3.0"
 
-  testCompile("org.spockframework:spock-core:0.7-groovy-2.0") {
+  testCompile("org.spockframework:spock-core:1.0-groovy-2.4") {
     exclude group: "org.codehaus.groovy"
   }
-  testCompile("com.netflix.nebula:nebula-test:2.0.4") {
+  testCompile("com.netflix.nebula:nebula-test:4.0.0") {
     exclude group: "org.codehaus.groovy"
   }
-  testCompile "net.sourceforge.cssparser:cssparser:0.9.14"
+  testCompile "net.sourceforge.cssparser:cssparser:0.9.18"
 }
 
 test {
