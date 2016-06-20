@@ -3,7 +3,7 @@ buildscript {
     jcenter()
   }
   dependencies {
-    classpath "com.jfrog.bintray.gradle:gradle-bintray-plugin:0.6"
+    classpath "com.jfrog.bintray.gradle:gradle-bintray-plugin:1.6"
     classpath "org.gradle.api.plugins:gradle-nexus-plugin:0.7.1"
     classpath "com.github.ben-manes:gradle-versions-plugin:0.12.0"
   }
@@ -12,6 +12,7 @@ apply plugin: 'com.github.ben-manes.versions'
 apply plugin: "com.jfrog.bintray"
 apply plugin: "groovy"
 apply plugin: "nexus"
+apply plugin: "maven-publish"
 apply from: "$rootDir/gradle/credentials.gradle"
 
 group = "com.github.robfletcher"
@@ -53,7 +54,27 @@ test {
 }
 
 task sourceJar(type: Jar) {
+  classifier = 'sources'
   from sourceSets.main.allSource
+}
+
+publishing {
+  publications {
+    mavenGroovy(MavenPublication) {
+      from components.java
+      
+      artifact sourceJar
+
+      pom.withXml {
+        Node license = new Node(null, 'license')
+        license.appendNode('name', 'Apache License, Version 2.0')
+        license.appendNode('url', 'https://www.apache.org/licenses/LICENSE-2.0.txt')
+        license.appendNode('distribution', 'repo')
+        
+        asNode().appendNode('licenses').append(license)
+      }
+    }
+  }
 }
 
 bintray {
@@ -61,7 +82,7 @@ bintray {
   key = project.bintrayApiKey
   publish = true
   dryRun = false
-  configurations = ["archives"]
+  publications = ['mavenGroovy']
 
   pkg {
     userOrg = "robfletcher"
@@ -70,6 +91,13 @@ bintray {
     licenses = ["Apache-2.0"]
     labels = ["compass"]
     desc = "Gradle plugin for Sass & Compass compilation"
+	
+    websiteUrl = 'https://github.com/robfletcher/gradle-compass'
+    issueTrackerUrl = 'https://github.com/robfletcher/gradle-compass/issues'
+    vcsUrl = 'https://github.com/robfletcher/gradle-compass.git'
+
+    githubRepo = 'robfletcher/gradle-compass'
+    githubReleaseNotesFile = 'README.adoc'
 
     version {
       name = project.version
@@ -79,5 +107,7 @@ bintray {
   }
 }
 bintrayUpload.dependsOn assemble
+
+task wrapper(type: Wrapper) { gradleVersion = '2.13' }
 
 defaultTasks "build"
