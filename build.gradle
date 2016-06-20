@@ -92,7 +92,7 @@ bintray {
     labels = ["compass"]
     desc = "Gradle plugin for Sass & Compass compilation"
 	
-	websiteUrl = 'https://github.com/robfletcher/gradle-compass'
+    websiteUrl = 'https://github.com/robfletcher/gradle-compass'
     issueTrackerUrl = 'https://github.com/robfletcher/gradle-compass/issues'
     vcsUrl = 'https://github.com/robfletcher/gradle-compass.git'
 
