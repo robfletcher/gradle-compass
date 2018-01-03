@@ -16,7 +16,11 @@ Compiles all SASS files. Equivalent to the `compass compile` command. The task s
 
 === compassWatch
 
-Compiles and watches all SASS files. Equivalent to the `compass watch` command.
+Use continuous builds:
+
+```
+./gradlew -t compassCompile
+```
 
 === compassVersion
 
