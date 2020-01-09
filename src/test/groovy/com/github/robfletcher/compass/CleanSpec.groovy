@@ -7,7 +7,7 @@ class CleanSpec extends CompassPluginSpec {
   def setup() {
     file("src/main/sass/file1.scss") << 'body { font-family: Georgia, serif; }'
     file("src/main/sass/file2.scss") << 'body { font-size: 16px; }'
-    runTasks COMPILE_TASK_NAME
+    runTasksSuccessfully COMPILE_TASK_NAME
   }
 
   @Unroll
@@ -17,7 +17,7 @@ class CleanSpec extends CompassPluginSpec {
     fileExists "build/stylesheets/file2.css"
 
     when:
-    runTasks taskName
+    runTasksSuccessfully taskName
 
     then:
     !fileExists("build/stylesheets/file1.css")

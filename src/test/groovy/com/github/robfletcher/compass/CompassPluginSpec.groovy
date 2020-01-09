@@ -18,6 +18,12 @@ abstract class CompassPluginSpec extends IntegrationSpec {
     fork = true // don't get stdout from the compass process without this
 
     buildFile.text = applyPlugin(CompassPlugin)
+    buildFile << """
+        repositories {
+          ruby.gems()
+          mavenCentral()
+        }
+    """
 
     def gemDir = System.properties."compass.gem.dir"
     if (gemDir) {

@@ -69,7 +69,9 @@ class WatchSpec extends CompassPluginSpec {
 
   private void startWatching() {
     Thread.start {
-      runTasks WATCH_TASK_NAME
+      def result = runTasks WATCH_TASK_NAME
+      println result.standardError
+      println result.standardOutput
     }
   }
 
