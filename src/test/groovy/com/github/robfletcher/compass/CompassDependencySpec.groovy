@@ -11,7 +11,7 @@ class CompassDependencySpec extends CompassPluginSpec {
       .version
 
     when:
-    runTasks "compassVersion"
+    runTasksSuccessfully "compassVersion"
 
     then:
     standardOutput.readLines().any {
@@ -28,7 +28,7 @@ class CompassDependencySpec extends CompassPluginSpec {
     """
 
     when:
-    runTasks "compassVersion"
+    runTasksSuccessfully "compassVersion"
 
     then:
     standardOutput.readLines().contains "Compass 0.12.6 (Alnilam)"

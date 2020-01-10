@@ -24,7 +24,7 @@ class CompileSpec extends CompassPluginSpec {
     '''
 
     when:
-    runTasks COMPILE_TASK_NAME
+    runTasksSuccessfully COMPILE_TASK_NAME
 
     then:
     with(stylesheet("build/stylesheets/basic.css")) {
@@ -37,13 +37,13 @@ class CompileSpec extends CompassPluginSpec {
     file("src/main/sass/basic.scss") << 'body { font-family: Georgia, serif; }'
 
     and:
-    runTasks COMPILE_TASK_NAME
+    runTasksSuccessfully COMPILE_TASK_NAME
 
     expect:
     fileExists "build/stylesheets/basic.css"
 
     when:
-    runTasks COMPILE_TASK_NAME
+    runTasksSuccessfully COMPILE_TASK_NAME
 
     then:
     wasUpToDate ":$COMPILE_TASK_NAME"
@@ -61,7 +61,7 @@ class CompileSpec extends CompassPluginSpec {
     file("src/sass/main.scss") << '''body { font-family: Georgia, serif; }'''
 
     when:
-    runTasks COMPILE_TASK_NAME
+    runTasksSuccessfully COMPILE_TASK_NAME
 
     then:
     with(stylesheet("build/stylesheets/main.css")) {
@@ -81,7 +81,7 @@ class CompileSpec extends CompassPluginSpec {
     file("src/main/sass/main.scss") << '''body { font-family: Georgia, serif; }'''
 
     when:
-    runTasks COMPILE_TASK_NAME
+    runTasksSuccessfully COMPILE_TASK_NAME
 
     then:
     with(stylesheet("build/css/main.css")) {

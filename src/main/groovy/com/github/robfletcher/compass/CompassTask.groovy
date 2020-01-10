@@ -3,6 +3,7 @@ package com.github.robfletcher.compass
 import com.github.jrubygradle.JRubyExec
 import com.github.jrubygradle.internal.JRubyExecUtils
 import org.gradle.api.file.FileCollection
+import org.gradle.api.provider.Provider
 import org.gradle.api.tasks.*
 
 import static CompassPlugin.CONFIGURATION_NAME
@@ -41,13 +42,14 @@ class CompassTask extends JRubyExec implements CompassTaskOptions {
   }
 
   @Override
-  File getGemWorkDir() {
-    getGemDir()
+  Provider<File> getGemWorkDir() {
+    project.provider { ->
+      getGemDir()
+    }
   }
 
   @Override
   List<String> getArgs() {
-    List<String> extra = ['-I', jarDependenciesGemLibPath(getGemWorkDir())]
-    JRubyExecUtils.buildArgs(extra, jrubyArgs, getScript(), ScriptArgumentsBuilder.compassArgs(this))
+    JRubyExecUtils.buildArgs([], jrubyArgs, getScript(), ScriptArgumentsBuilder.compassArgs(this))
   }
 }

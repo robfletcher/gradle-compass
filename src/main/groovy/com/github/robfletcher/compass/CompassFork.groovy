@@ -1,10 +1,15 @@
 package com.github.robfletcher.compass
 
 import com.github.jengelman.gradle.plugins.processes.tasks.JavaFork
-import com.github.jrubygradle.GemUtils
+import com.github.jrubygradle.api.gems.GemUtils
+import com.github.jrubygradle.api.gems.GemOverwriteAction
 import com.github.jrubygradle.internal.JRubyExecUtils
+import org.gradle.api.artifacts.Configuration
 import org.gradle.api.file.FileCollection
 import org.gradle.api.tasks.*
+
+import static com.github.jrubygradle.api.gems.GemOverwriteAction.SKIP
+import static com.github.jrubygradle.api.gems.GemOverwriteAction.OVERWRITE
 
 class CompassFork extends JavaFork implements CompassTaskOptions {
 
@@ -38,9 +43,10 @@ class CompassFork extends JavaFork implements CompassTaskOptions {
     def gemDir = getGemDir()
 
     gemDir.mkdirs()
+    Configuration jrubyConfig = project.extensions.jruby.jrubyConfiguration
     GemUtils.extractGems(
       project,
-      project.configurations.getByName("jrubyExec"),
+      jrubyConfig,
       project.configurations.getByName("compass"),
       gemDir,
       overwriteGems()
@@ -48,7 +54,7 @@ class CompassFork extends JavaFork implements CompassTaskOptions {
 
     setMain "org.jruby.Main"
     environment GEM_HOME: gemDir, PATH: getComputedPATH(gemDir)
-    classpath JRubyExecUtils.classpathFromConfiguration(project.configurations.getByName("jrubyExec"))
+    classpath JRubyExecUtils.classpathFromConfiguration(jrubyConfig)
     args JRubyExecUtils.buildArgs(["-S"], new File("compass"), ScriptArgumentsBuilder.compassArgs(this))
 
     super.javafork()
@@ -56,10 +62,10 @@ class CompassFork extends JavaFork implements CompassTaskOptions {
 
   String getComputedPATH(File gemDir) {
     def path = new File(gemDir, "bin")
-    path.absolutePath + File.pathSeparatorChar + System.env.PATH
+    path.absolutePath + File.pathSeparatorChar + System.getenv().PATH
   }
 
-  private GemUtils.OverwriteAction overwriteGems() {
-    project.gradle.startParameter.refreshDependencies ? GemUtils.OverwriteAction.OVERWRITE : GemUtils.OverwriteAction.SKIP
+  private GemOverwriteAction overwriteGems() {
+    project.gradle.startParameter.refreshDependencies ? OVERWRITE : SKIP
   }
 }

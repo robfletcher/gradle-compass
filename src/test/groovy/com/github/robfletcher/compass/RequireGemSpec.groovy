@@ -22,7 +22,7 @@ class RequireGemSpec extends CompassPluginSpec {
     '''
 
     when:
-    runTasks COMPILE_TASK_NAME
+    runTasksSuccessfully COMPILE_TASK_NAME
 
     then:
     with(stylesheet("build/stylesheets/extended.css")) {

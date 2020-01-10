@@ -60,8 +60,8 @@ class CompassPlugin implements Plugin<Project> {
       description "Generate a configuration file"
       command "config"
     }
-    project.task("compassPrepare", type: JRubyPrepare) {
-    }
+    project.task("compassPrepare", type: JRubyPrepare) {}
+
     def extension = project.extensions.create("compass", CompassExtension, project)
 
     project.tasks.withType(CompassTaskOptions) { CompassTaskOptions task ->

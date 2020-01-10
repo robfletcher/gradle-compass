@@ -15,7 +15,7 @@ class TaskIntegrationSpec extends CompassPluginSpec {
     '''
 
     when:
-    runTasks "assemble"
+    runTasksSuccessfully "assemble"
 
     then:
     wasExecuted ":compassCompile"
